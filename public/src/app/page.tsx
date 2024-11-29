@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
+import Services from "./components/services/services";
 
 export default function Home() {
   return (
@@ -102,7 +103,7 @@ export default function Home() {
           </SwiperSlide>
         </Swiper>
       </section>
-      <section className="py-5 px-2 px-lg-5">
+      <section className="py-5 px-2 px-lg-5 bg-white">
         <div className="container-fluid">
           <div className="row gx-4 gy-4">
             <div className="col-lg-5">
@@ -142,6 +143,24 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Services />
+      {/* <section className="px-2 px-lg-5">
+        <div className="container-fluid py-5 bg-warning rounded-4">
+          <h2 className="fw-bold text-center">Our Services</h2>
+
+          <div className="row">
+            <div className="col-lg-3">
+              <div className="bg-black px-3 py-5 rounded-4">
+                <h4 className="text-white fw-bold">Retail Tenancy</h4>
+                <p className="text-warning">
+                  Shops for rent, commission-based tenancy options, and retail
+                  supply chain services.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
     </main>
   );
 }

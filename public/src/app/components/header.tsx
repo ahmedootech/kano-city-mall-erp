@@ -9,7 +9,7 @@ const Header = () => {
     <Navbar
       expand="lg"
       bg="white"
-      className="bg-body-white mt-4 mx-1 mx-lg-4"
+      className="bg-body-white mt-3 mx-1 mx-lg-4 rounded-3"
       fixed="top"
     >
       <Container>
@@ -33,7 +33,7 @@ const Header = () => {
             <Nav.Link href="#link">Blog</Nav.Link>
             <Nav.Link href="#link">Contact Us</Nav.Link>
           </Nav>
-          <Nav>
+          <Nav className="d-none d-lg-block">
             <Nav.Link>
               <SearchIcon />
             </Nav.Link>
