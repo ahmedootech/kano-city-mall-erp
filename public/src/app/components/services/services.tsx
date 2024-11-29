@@ -14,7 +14,7 @@ const Services = () => {
         <h2 className="fw-bold text-center">Our Services</h2>
 
         <div className="d-lg-none">
-          <div className="" style={{ height: "300px" }}>
+          <div className="" style={{ height: "360px" }}>
             <Swiper
               slidesPerView={1.5}
               spaceBetween={20}

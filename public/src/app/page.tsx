@@ -144,23 +144,48 @@ export default function Home() {
         </div>
       </section>
       <Services />
-      {/* <section className="px-2 px-lg-5">
-        <div className="container-fluid py-5 bg-warning rounded-4">
-          <h2 className="fw-bold text-center">Our Services</h2>
 
-          <div className="row">
-            <div className="col-lg-3">
-              <div className="bg-black px-3 py-5 rounded-4">
-                <h4 className="text-white fw-bold">Retail Tenancy</h4>
-                <p className="text-warning">
-                  Shops for rent, commission-based tenancy options, and retail
-                  supply chain services.
-                </p>
-              </div>
-            </div>
+      <section className="px-2 px-lg-5 pt-4">
+        <div className="container-fluid py-5 px-lg-5 bg-white rounded-4">
+          <h2 className="fw-bold text-center">Shops And Businesses</h2>
+          <p className="text-center">Explore Shops and their Businesses</p>
+
+          <div className="" style={{ height: "500px" }}>
+            <Swiper
+              spaceBetween={20}
+              navigation={true}
+              modules={[Navigation, Autoplay, Pagination]}
+              pagination={{ clickable: true }}
+              autoplay
+              loop
+              className="mySwiper position-relative h-100 w-100 text-white"
+            >
+              <SwiperSlide>
+                <article
+                  className="py-3 py-lg-5 px-3 px-lg-5 h-100 rounded-4 position-relative"
+                  style={{
+                    backgroundImage: `url('/images/business-1.jpeg')`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                >
+                  <div className="bg-black position-absolute bottom-0 end-0 p-4 text-center rounded-bottom-4 rounded-start-0">
+                    <h4>Meenal Event Hall</h4>
+                    <h5 className="text-warning mt-0 mb-3">KCM 107T</h5>
+                    <Link
+                      href="/"
+                      className="btn btn-warning px-4 py-2 fw-bold rounded-5 align-self-start"
+                    >
+                      Get in touch
+                    </Link>
+                  </div>
+                </article>
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
-      </section> */}
+      </section>
     </main>
   );
 }
