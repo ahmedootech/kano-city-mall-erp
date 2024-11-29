@@ -102,7 +102,7 @@ export default function Home() {
           </SwiperSlide>
         </Swiper>
       </section>
-      <section className="my-5 py-5 px-2 px-lg-5">
+      <section className="py-5 px-2 px-lg-5">
         <div className="container-fluid">
           <div className="row gx-4 gy-4">
             <div className="col-lg-5">
