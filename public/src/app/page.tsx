@@ -30,7 +30,7 @@ export default function Home() {
               <div className="container h-100 pb-5">
                 <div className="row h-100 align-items-end">
                   <div className="col-lg-6 ">
-                    <h2 className="display-5 fw-bold ">
+                    <h2 className="display-5 fw-bold mb-3">
                       WELCOME <br />
                       TO KANO <span className="text-warning">CITY MALL</span>
                     </h2>
@@ -58,7 +58,7 @@ export default function Home() {
               <div className="container h-100 pb-5">
                 <div className="row h-100 align-items-end">
                   <div className="col-lg-6 ">
-                    <h2 className="display-5 fw-bold ">
+                    <h2 className="display-5 fw-bold mb-3">
                       GET YOUR HALL TODAY AND EXPLORE YOUR BUSINESS.
                     </h2>
                     <Link
@@ -86,7 +86,7 @@ export default function Home() {
               <div className="container h-100 pb-5">
                 <div className="row h-100 align-items-end">
                   <div className="col-lg-6 ">
-                    <h2 className="display-5 fw-bold ">
+                    <h2 className="display-5 fw-bold mb-3">
                       EXPLORE YOUR BUSINESS
                     </h2>
                     <Link
@@ -104,8 +104,8 @@ export default function Home() {
       </section>
       <section className="my-5 py-5 px-2 px-lg-5">
         <div className="container-fluid">
-          <div className="row">
-            <div className="col-lg-5 ">
+          <div className="row gx-4 gy-4">
+            <div className="col-lg-5">
               <div className="d-flex flex-column h-100 justify-content-center lh-lg">
                 <h2 className="fw-bold">About The Mall</h2>
                 <p>
@@ -128,14 +128,16 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-7">
-              <Image
-                src={"/images/carousel-1.jpg"}
-                alt=""
-                layout="responsive"
-                width={818}
-                height={500}
-                className="rounded-4"
-              />
+              <div className="">
+                <Image
+                  src={"/images/carousel-1.jpg"}
+                  alt=""
+                  layout="responsive"
+                  width={818}
+                  height={500}
+                  className="rounded-4 w-100"
+                />
+              </div>
             </div>
           </div>
         </div>

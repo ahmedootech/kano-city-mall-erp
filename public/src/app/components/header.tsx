@@ -9,7 +9,7 @@ const Header = () => {
     <Navbar
       expand="lg"
       bg="white"
-      className="bg-body-white mt-4 mx-4"
+      className="bg-body-white mt-4 mx-1 mx-lg-4"
       fixed="top"
     >
       <Container>
