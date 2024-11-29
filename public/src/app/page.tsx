@@ -109,9 +109,9 @@ export default function Home() {
               <div className="d-flex flex-column h-100 justify-content-center lh-lg">
                 <h2 className="fw-bold">About The Mall</h2>
                 <p>
-                  Kano City Mall is more than just a shopping destination, it's
-                  a hub of lifestyle and culture. Located in the heart of Kano,
-                  we offer an unmatched blend of retail, dining, and
+                  Kano City Mall is more than just a shopping destination,
+                  it&apos;s a hub of lifestyle and culture. Located in the heart
+                  of Kano, we offer an unmatched blend of retail, dining, and
                   entertainment experiences for individuals and families alike.
                 </p>
                 <p>
