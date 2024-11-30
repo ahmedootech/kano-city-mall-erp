@@ -11,7 +11,7 @@ const ServiceCard: React.FC<{ title: string; description: string }> = ({
         <p className="text-warning text-start my-4">{description}</p>
         <Link
           href="/"
-          className="btn btn-outline-light px-4 py-2 fw-bold rounded-5 align-self-start"
+          className="btn btn-outline-light px-4 py-2 rounded-5 align-self-start"
         >
           Read More
         </Link>

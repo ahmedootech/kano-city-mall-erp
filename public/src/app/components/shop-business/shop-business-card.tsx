@@ -20,7 +20,7 @@ const ShopBusinessCard: React.FC<{
         <h5 className="text-warning mt-0 mb-3">{code}</h5>
         <Link
           href="/"
-          className="btn btn-warning px-4 py-2 fw-bold rounded-5 align-self-start"
+          className="btn btn-warning px-4 py-2 rounded-5 align-self-start"
         >
           Get in touch
         </Link>

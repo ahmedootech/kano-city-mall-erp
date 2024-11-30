@@ -6,7 +6,7 @@ import ShopBusinessCard from "./shop-business-card";
 const ShopsBusinesses = () => {
   return (
     <section className="px-2 px-lg-5 pt-4">
-      <div className="container-fluid py-5 px-lg-5 bg-white rounded-4">
+      <div className="container-fluid py-5 bg-white rounded-4">
         <h2 className="fw-bold text-center">Shops And Businesses</h2>
         <p className="text-center">Explore Shops and their Businesses</p>
 

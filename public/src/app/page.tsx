@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Services from "./components/services/services";
 import ShopsBusinesses from "./components/shop-business/shops-businesses";
+import Blogs from "./components/blogs/blogs";
 
 export default function Home() {
   return (
@@ -146,48 +147,32 @@ export default function Home() {
       </section>
       <Services />
       <ShopsBusinesses />
-
-      {/* <section className="px-2 px-lg-5 pt-4">
-        <div className="container-fluid py-5 px-lg-5 bg-white rounded-4">
-          <h2 className="fw-bold text-center">Shops And Businesses</h2>
-          <p className="text-center">Explore Shops and their Businesses</p>
-
-          <div className="" style={{ height: "500px" }}>
-            <Swiper
-              spaceBetween={20}
-              navigation={true}
-              modules={[Navigation, Autoplay, Pagination]}
-              pagination={{ clickable: true }}
-              autoplay
-              loop
-              className="mySwiper position-relative h-100 w-100 text-white"
-            >
-              <SwiperSlide>
-                <article
-                  className="py-3 py-lg-5 px-3 px-lg-5 h-100 rounded-4 position-relative"
-                  style={{
-                    backgroundImage: `url('/images/business-1.jpeg')`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                  }}
-                >
-                  <div className="bg-black position-absolute bottom-0 end-0 p-4 text-center rounded-bottom-4 rounded-start-0">
-                    <h4>Meenal Event Hall</h4>
-                    <h5 className="text-warning mt-0 mb-3">KCM 107T</h5>
-                    <Link
-                      href="/"
-                      className="btn btn-warning px-4 py-2 fw-bold rounded-5 align-self-start"
-                    >
-                      Get in touch
-                    </Link>
-                  </div>
-                </article>
-              </SwiperSlide>
-            </Swiper>
+      <Blogs />
+      <section className="bg-warning py-5 px-3 px-lg-5">
+        <div className="container-fluid">
+          <div className="row justify-content-center align-items-center">
+            <div className="col-lg-4">
+              <h5 className="text-center mb-4 mb-lg-0">
+                Subscribe to Newsletters
+              </h5>
+            </div>
+            <div className="col-lg-6">
+              <div className="d-flex gap-3">
+                <input
+                  type="email"
+                  placeholder="Enter your email address"
+                  className="form-control bg-transparent border-secondary rounded-5 px-4"
+                />
+                <input
+                  type="submit"
+                  value="Subscribe"
+                  className="btn btn-light px-3 rounded-5"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </section> */}
+      </section>
     </main>
   );
 }

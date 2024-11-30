@@ -9,8 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 const Footer = () => {
   return (
-    <footer className="py-0 py-lg-5">
-      <div className="container gx-0">
+    <footer className="pt-5 py-lg-5">
+      <div className="container-fluid gx-0">
         <div className="row gy-3 mb-5 px-3 px-lg-5">
           <div className="col-lg-7 order-2 order-lg-1">
             <div className="">
