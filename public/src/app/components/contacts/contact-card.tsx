@@ -1,7 +1,7 @@
-import { SvgIconOwnProps, SvgIconProps } from "@mui/material";
 import { ReactElement } from "react";
 
 const ContactCard: React.FC<{
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Icon: any;
   title: string;
   description: ReactElement;
