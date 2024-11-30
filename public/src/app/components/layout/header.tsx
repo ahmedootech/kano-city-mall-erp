@@ -5,13 +5,24 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
+import { useState } from "react";
+
 const Header = () => {
+  const [expanded, setExpanded] = useState(false);
+  const [activeLink, setActiveLink] = useState("#home");
+
+  const handleNavLinkClick = (link: string) => {
+    setActiveLink(link);
+    setExpanded(false);
+  };
+
   return (
     <Navbar
       expand="lg"
       bg="white"
       className="bg-body-white mt-3 mx-1 mx-lg-4 rounded-3"
       fixed="top"
+      expanded={expanded}
     >
       <Container>
         <Navbar.Brand href="#home">
@@ -28,30 +39,34 @@ const Header = () => {
             <SearchIcon />
           </Nav.Link>
         </Nav>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={() => setExpanded(expanded ? false : true)}
+        />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto fw-semibold gap-3">
-            <Link href="#home" passHref legacyBehavior>
-              <Nav.Link>Home</Nav.Link>
-            </Link>
-            <Link href="#about" passHref legacyBehavior>
-              <Nav.Link>About</Nav.Link>
-            </Link>
-            <Link href="#services" passHref legacyBehavior>
-              <Nav.Link>Services</Nav.Link>
-            </Link>
-            <Link href="#shops" passHref legacyBehavior>
-              <Nav.Link>Shops</Nav.Link>
-            </Link>
-            <Link href="#businesses" passHref legacyBehavior>
-              <Nav.Link>Businesses</Nav.Link>
-            </Link>
-            <Link href="#blog" passHref legacyBehavior>
-              <Nav.Link>Blog</Nav.Link>
-            </Link>
-            <Link href="#contact" passHref legacyBehavior>
-              <Nav.Link>Contact Us</Nav.Link>
-            </Link>
+            {[
+              { href: "#home", label: "Home" },
+              { href: "#about", label: "About" },
+              { href: "#services", label: "Services" },
+              { href: "#shops", label: "Shops" },
+              { href: "#businesses", label: "Businesses" },
+              { href: "#blog", label: "Blog" },
+              { href: "#contact", label: "Contact Us" },
+            ].map(({ href, label }) => (
+              <Link key={href} href={href} passHref legacyBehavior>
+                <Nav.Link
+                  onClick={() => handleNavLinkClick(href)}
+                  className={`${
+                    activeLink === href
+                      ? "border-2 border-bottom border-warning"
+                      : ""
+                  }`}
+                >
+                  {label}
+                </Nav.Link>
+              </Link>
+            ))}
           </Nav>
           <Nav className="d-none d-lg-block">
             <Nav.Link>
