@@ -22,6 +22,11 @@ const Header = () => {
             style={{ objectFit: "contain" }}
           />
         </Navbar.Brand>
+        <Nav className="ms-auto me-5 d-block d-lg-none">
+          <Nav.Link>
+            <SearchIcon />
+          </Nav.Link>
+        </Nav>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto fw-semibold gap-3">

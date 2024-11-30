@@ -4,6 +4,7 @@ import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import Link from "next/link";
 import Image from "next/image";
 import Services from "./components/services/services";
+import ShopsBusinesses from "./components/shop-business/shops-businesses";
 
 export default function Home() {
   return (
@@ -122,7 +123,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/"
-                  className="btn btn-outline-warning px-5 py-2 fw-bold rounded-5 align-self-start"
+                  className="btn btn-outline-warning px-4 py-2 fw-bold rounded-5 align-self-start"
                 >
                   Read More
                 </Link>
@@ -144,8 +145,9 @@ export default function Home() {
         </div>
       </section>
       <Services />
+      <ShopsBusinesses />
 
-      <section className="px-2 px-lg-5 pt-4">
+      {/* <section className="px-2 px-lg-5 pt-4">
         <div className="container-fluid py-5 px-lg-5 bg-white rounded-4">
           <h2 className="fw-bold text-center">Shops And Businesses</h2>
           <p className="text-center">Explore Shops and their Businesses</p>
@@ -185,7 +187,7 @@ export default function Home() {
             </Swiper>
           </div>
         </div>
-      </section>
+      </section> */}
     </main>
   );
 }
