@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         <section className="container-fluid bg-dark py-5 px-3 px-lg-5 text-white rounded-bottom-4">
-          <div className="row py-4 border-warning border-top border-bottom g-3 gy-5">
+          <div className="row py-4 border-warning border-top border-bottom g-3 gy-5 my-3">
             <div className="col-lg-7">
               <Image
                 src={"/images/logo.png"}
@@ -146,7 +146,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="d-flex flex-column flex-lg-row justify-content-lg-between mt-3 font-arial">
+          <div className="d-flex flex-column flex-lg-row justify-content-lg-between  font-arial">
             <p className="order-2 order-lg-1">
               Copyright© 2024 AITS HUBl. All Rights Reserved.
             </p>

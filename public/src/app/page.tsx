@@ -6,8 +6,15 @@ import Image from "next/image";
 import Services from "./components/services/services";
 import ShopsBusinesses from "./components/shop-business/shops-businesses";
 import Blogs from "./components/blogs/blogs";
+import { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 export default function Home() {
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <main>
       <section style={{ height: "550px" }}>
@@ -157,22 +164,58 @@ export default function Home() {
               </h5>
             </div>
             <div className="col-lg-6">
-              <div className="d-flex gap-3">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="form-control bg-transparent border-secondary rounded-5 px-4"
-                />
-                <input
-                  type="submit"
-                  value="Subscribe"
-                  className="btn btn-light px-3 rounded-5"
-                />
-              </div>
+              <form action="">
+                <div className="d-flex gap-3">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    className="form-control bg-transparent border-secondary rounded-5 px-4"
+                  />
+                  <input
+                    type="submit"
+                    value="Subscribe"
+                    className="btn btn-light px-3 rounded-5"
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </section>
+
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton className="bg-danger">
+          <Modal.Title className="text-white">Hello, welcome to</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="px-3 px-lg-5 py-4">
+          <div className="d-flex justify-content-center mb-1">
+            <Image
+              src={"/images/logo.png"}
+              alt=""
+              width={153}
+              height={40}
+              style={{ objectFit: "contain", objectPosition: "left" }}
+            />
+          </div>
+          <p className="text-center mb-4">
+            Subscribe to our Newsletter for more Updates!{" "}
+          </p>
+          <form action="">
+            <div className="d-flex flex-column gap-3">
+              <input
+                type="email"
+                placeholder="Enter your email address"
+                className="form-control bg-transparent border-secondary rounded-5 px-4"
+              />
+              <input
+                type="submit"
+                value="Subscribe"
+                className="btn btn-danger px-3 rounded-5 align-self-end"
+              />
+            </div>
+          </form>
+        </Modal.Body>
+      </Modal>
     </main>
   );
 }
