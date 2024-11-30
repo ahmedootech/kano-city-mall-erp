@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/header";
 import "swiper/css";
 import "swiper/css/bundle";
+import customLufga from "../../public/fonts/Lufga/custom-lufga-font";
+
 // import "swiper/css/navigation";
 
 const geistSans = localFont({
@@ -31,7 +33,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
+      <body className={`${customLufga.className}`}>
         <Header />
         {children}
       </body>

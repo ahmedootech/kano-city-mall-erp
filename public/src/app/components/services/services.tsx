@@ -3,13 +3,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import {
-  Autoplay,
-  Pagination,
-  Navigation,
-  Scrollbar,
-  A11y,
-} from "swiper/modules";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { servicesList } from "./data";
 import ServiceCard from "./service-card";
 
@@ -22,7 +16,7 @@ const Services = () => {
         <div className="d-lg-none">
           <div className="" style={{ height: "360px" }}>
             <Swiper
-              slidesPerView={1.2}
+              slidesPerView={1.1}
               spaceBetween={20}
               pagination={{
                 clickable: true,
