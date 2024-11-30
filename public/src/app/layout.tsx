@@ -5,7 +5,7 @@ import Header from "./components/layout/header";
 import "swiper/css";
 import "swiper/css/bundle";
 import customLufga from "../../public/fonts/Lufga/custom-lufga-font";
-import Footer from "./components/layout/footer";
+import Footer from "./components/layout/footer/footer";
 
 export const metadata: Metadata = {
   title: "Kano City Mall",

@@ -6,18 +6,21 @@ import Image from "next/image";
 import Services from "./components/services/services";
 import ShopsBusinesses from "./components/shop-business/shops-businesses";
 import Blogs from "./components/blogs/blogs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 
 export default function Home() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  useEffect(() => {
+    handleShow();
+  }, []);
   return (
     <main>
-      <section style={{ height: "550px" }}>
+      <section id="home" style={{ height: "550px" }}>
         <Swiper
           spaceBetween={20}
           navigation={true}
@@ -112,7 +115,7 @@ export default function Home() {
           </SwiperSlide>
         </Swiper>
       </section>
-      <section className="py-5 px-2 px-lg-5 bg-white">
+      <section id="about" className="py-5 px-2 px-lg-5 bg-white">
         <div className="container-fluid">
           <div className="row gx-4 gy-4">
             <div className="col-lg-5">

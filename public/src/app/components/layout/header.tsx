@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import SearchIcon from "@mui/icons-material/Search";
+import Link from "next/link";
 const Header = () => {
   return (
     <Navbar
@@ -30,13 +31,27 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto fw-semibold gap-3">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">About</Nav.Link>
-            <Nav.Link href="#link">Services</Nav.Link>
-            <Nav.Link href="#link">Shops</Nav.Link>
-            <Nav.Link href="#link">Businesses</Nav.Link>
-            <Nav.Link href="#link">Blog</Nav.Link>
-            <Nav.Link href="#link">Contact Us</Nav.Link>
+            <Link href="#home" passHref legacyBehavior>
+              <Nav.Link>Home</Nav.Link>
+            </Link>
+            <Link href="#about" passHref legacyBehavior>
+              <Nav.Link>About</Nav.Link>
+            </Link>
+            <Link href="#services" passHref legacyBehavior>
+              <Nav.Link>Services</Nav.Link>
+            </Link>
+            <Link href="#shops" passHref legacyBehavior>
+              <Nav.Link>Shops</Nav.Link>
+            </Link>
+            <Link href="#businesses" passHref legacyBehavior>
+              <Nav.Link>Businesses</Nav.Link>
+            </Link>
+            <Link href="#blog" passHref legacyBehavior>
+              <Nav.Link>Blog</Nav.Link>
+            </Link>
+            <Link href="#contact" passHref legacyBehavior>
+              <Nav.Link>Contact Us</Nav.Link>
+            </Link>
           </Nav>
           <Nav className="d-none d-lg-block">
             <Nav.Link>

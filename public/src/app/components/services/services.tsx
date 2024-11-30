@@ -9,7 +9,7 @@ import ServiceCard from "./service-card";
 
 const Services = () => {
   return (
-    <section className="px-2 px-lg-5">
+    <section id="services" className="px-2 px-lg-5">
       <div className="container-fluid py-5 px-lg-5 bg-warning rounded-4">
         <h2 className="fw-bold text-center">Our Services</h2>
 

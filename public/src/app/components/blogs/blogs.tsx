@@ -4,7 +4,7 @@ import { blogs } from "./data";
 
 const Blogs = () => {
   return (
-    <section className="bg-dark py-5 px-3 px-lg-5 text-white">
+    <section id="blog" className="bg-dark py-5 px-3 px-lg-5 text-white">
       <div className="text-center">
         <h2 className="fw-bold text-center text-warning my-0">
           Update On Our Blog
