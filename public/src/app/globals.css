@@ -23,6 +23,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.font-arial {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 * {
   box-sizing: border-box;
