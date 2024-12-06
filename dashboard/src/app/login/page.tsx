@@ -1,14 +1,13 @@
 "use client";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
-import {
-  Mail,
-  Lock,
-  Facebook,
-  MessageCircle,
-  Eye,
-  EyeOff,
-} from "react-feather";
+import TelegramIcon from "@mui/icons-material/Telegram";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
+import MessageIcon from "@mui/icons-material/Message";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
+
+import { Mail, Lock, Eye, EyeOff } from "react-feather";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -116,42 +115,52 @@ const Login: React.FC = () => {
             <button type="submit" className="btn btn-danger w-100 py-2">
               Sign in
             </button>
+
+            <p className="text-muted mt-4 text-center text-danger">
+              <span className="text-danger">Sign In Secured by </span>{" "}
+              <span className="fw-bold">AITS HUB</span>
+            </p>
           </form>
 
           {/* Footer */}
-          <p className="text-muted mt-4 text-center text-danger">
-            <span className="text-danger">Sign In Secured by </span>{" "}
-            <span className="fw-bold">AITS HUB</span>
-          </p>
-          <p className="text-danger fs-5 text-center mb-2 d-flex align-items-center justify-content-center">
-            {" "}
-            Customer Support
-          </p>
-          <span className="mb-2">Call/Chat with us now</span>
-          <p className="text-muted text-center mb-0 d-flex align-items-center justify-content-center">
-            <a
-              href="tel:+2349114565121"
-              className="text-dark me-2 d-flex align-items-center"
-            >
-              (+234) 911 456 5121
-            </a>
-            <a
-              href="https://wa.me/+2349114565121"
-              className="text-success me-3"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <MessageCircle size={16} />
-            </a>
-            <a
-              href="https://facebook.com/"
-              className="text-primary me-3"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Facebook size={16} />
-            </a>
-          </p>
+          <div className="customer-support-section mt-5 ">
+            <div className="d-flex justify-content-center">
+              <SupportAgentIcon
+                style={{
+                  fontSize: "50px",
+                  color: "black",
+                }}
+              />
+            </div>
+            <p className="text-danger fs-2 mb-2 text-center">
+              Customer Support
+            </p>
+
+            <div className="d-flex flex-column  text-center">
+              <span className="fw-bold fs-5 ">Call/Chat with us</span>
+              <span className="text-danger fs-8  align-items-center mt-0">
+                <MessageIcon className="me-2" style={{ color: "#3EB489" }} />{" "}
+                Send Us Message Now
+              </span>
+            </div>
+            <p className="text-muted text-center mb-0 d-flex align-items-center justify-content-center">
+              <a
+                href="tel:+2349114565121"
+                className="text-dark me-2 d-flex align-items-center"
+              >
+                (+234) 911 456 5121
+              </a>
+              <a href="">
+                <FacebookRoundedIcon />
+              </a>
+              <a href="">
+                <WhatsAppIcon style={{ color: "#25D366" }} />
+              </a>
+              <a href="">
+                <TelegramIcon style={{ color: "#0088CC" }} />
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
