@@ -1,12 +1,20 @@
 "use client";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
-import { Mail, Lock, Facebook, Phone, MessageCircle } from "react-feather";
+import {
+  Mail,
+  Lock,
+  Facebook,
+  MessageCircle,
+  Eye,
+  EyeOff,
+} from "react-feather";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,7 +47,6 @@ const Login: React.FC = () => {
             <h3 className="text-dark fw-bold">Welcome Back 👋</h3>
           </div>
 
-          {/* Form */}
           <form
             onSubmit={handleSubmit}
             style={{ width: "100%", maxWidth: "400px" }}
@@ -70,7 +77,7 @@ const Login: React.FC = () => {
                   <Lock size={16} />
                 </span>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   className="form-control border border-danger"
                   placeholder="Password"
@@ -78,6 +85,13 @@ const Login: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
+                <span
+                  className="input-group-text bg-white text-danger"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </span>
               </div>
             </div>
 
@@ -88,6 +102,7 @@ const Login: React.FC = () => {
                   id="rememberMe"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
+                  style={{ accentColor: "red" }}
                 />
                 <label htmlFor="rememberMe" className="ms-2 text-secondary">
                   Remember me
@@ -104,16 +119,21 @@ const Login: React.FC = () => {
           </form>
 
           {/* Footer */}
-          <p className="text-muted mt-4 text-center">
-            Sign In Secured by <span className="fw-bold">AITS HUB</span>
+          <p className="text-muted mt-4 text-center text-danger">
+            <span className="text-danger">Sign In Secured by </span>{" "}
+            <span className="fw-bold">AITS HUB</span>
           </p>
+          <p className="text-danger fs-5 text-center mb-2 d-flex align-items-center justify-content-center">
+            {" "}
+            Customer Support
+          </p>
+          <span className="mb-2">Call/Chat with us now</span>
           <p className="text-muted text-center mb-0 d-flex align-items-center justify-content-center">
-            Customer Support:&nbsp;
             <a
               href="tel:+2349114565121"
               className="text-dark me-2 d-flex align-items-center"
             >
-              <Phone size={16} className="me-1" /> +234 911 456 5121
+              (+234) 911 456 5121
             </a>
             <a
               href="https://wa.me/+2349114565121"
