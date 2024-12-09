@@ -8,6 +8,7 @@ import ShopsBusinesses from "./components/shop-business/shops-businesses";
 import Blogs from "./components/blogs/blogs";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
+import HallsBookings from "./components/halls-bookings/halls-bookings";
 
 export default function Home() {
   const [show, setShow] = useState(false);
@@ -156,6 +157,7 @@ export default function Home() {
         </div>
       </section>
       <Services />
+      <HallsBookings />
       <ShopsBusinesses />
       <Blogs />
       <section className="bg-warning py-5 px-3 px-lg-5">
