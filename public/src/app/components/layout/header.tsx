@@ -49,8 +49,8 @@ const Header = () => {
               { href: "#home", label: "Home" },
               { href: "#about", label: "About" },
               { href: "#services", label: "Services" },
-              { href: "#shops", label: "Shops" },
-              { href: "#businesses", label: "Businesses" },
+              { href: "#halls-", label: "Halls & Booking" },
+              { href: "#shops-businesses", label: "Shops & Businesses" },
               { href: "#blog", label: "Blog" },
               { href: "#contact", label: "Contact Us" },
             ].map(({ href, label }) => (
