@@ -11,7 +11,7 @@ const HallsBookings = () => {
       : hallsBookings.filter((item) => item.type === type);
 
   return (
-    <section id="#halls-booking" className="px-2 px-lg-5 pt-4 bg-dark my-4">
+    <section id="halls-booking" className="px-2 px-lg-5 pt-4 bg-dark my-4">
       <div id="businesses" className="container-fluid py-5  rounded-4">
         <h2 className="fw-bold text-center text-warning">Halls And Booking</h2>
         <p className="text-center text-white">
@@ -20,7 +20,7 @@ const HallsBookings = () => {
 
         <div className="d-flex flex-column align-items-center mb-4">
           <p className="text-white">Select from the Category</p>
-          <div className="w-25">
+          <div className="col-7 col-lg-3">
             <select
               className="form-select border-warning py-3 bg-dark text-white"
               name=""
