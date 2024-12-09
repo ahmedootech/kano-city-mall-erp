@@ -1,5 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import { hallsBookings } from "./data";
 import HallShopCard from "./hall-shop";
 import { useState } from "react";
