@@ -49,7 +49,7 @@ const Header = () => {
               { href: "#home", label: "Home" },
               { href: "#about", label: "About" },
               { href: "#services", label: "Services" },
-              { href: "#halls-", label: "Halls & Booking" },
+              { href: "#halls-booking", label: "Halls & Booking" },
               { href: "#shops-businesses", label: "Shops & Businesses" },
               { href: "#blog", label: "Blog" },
               { href: "#contact", label: "Contact Us" },

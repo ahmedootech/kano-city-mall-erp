@@ -47,12 +47,12 @@ export default function Home() {
                       WELCOME <br />
                       TO KANO <span className="text-warning">CITY MALL</span>
                     </h2>
-                    <Link
+                    {/* <Link
                       href="/"
                       className="btn btn-warning px-5 py-2 fw-bold rounded-5"
                     >
                       BOOK RESERVATION NOW
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -74,12 +74,12 @@ export default function Home() {
                     <h2 className="display-5 fw-bold mb-3">
                       GET YOUR HALL TODAY AND EXPLORE YOUR BUSINESS.
                     </h2>
-                    <Link
+                    {/* <Link
                       href="/"
                       className="btn btn-warning px-5 py-2 fw-bold rounded-5"
                     >
                       BOOK RESERVATION NOW
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
@@ -102,12 +102,12 @@ export default function Home() {
                     <h2 className="display-5 fw-bold mb-3">
                       EXPLORE YOUR BUSINESS
                     </h2>
-                    <Link
+                    {/* <Link
                       href="/"
                       className="btn btn-warning px-5 py-2 fw-bold rounded-5"
                     >
                       BOOK RESERVATION NOW
-                    </Link>
+                    </Link> */}
                   </div>
                 </div>
               </div>
