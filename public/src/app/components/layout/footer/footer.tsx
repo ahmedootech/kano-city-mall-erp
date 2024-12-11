@@ -135,10 +135,10 @@ const Footer = () => {
                 <div className="col-6">
                   <h5 className="mb-3 text-warning">Contact</h5>
                   <div className="d-flex flex-column gap-3">
-                    <a href="#" className="nav-link font-arial">
+                    <a href="#" className="nav-link ">
                       +234 708899945
                     </a>
-                    <a href="#" className="nav-link font-arial">
+                    <a href="#" className="nav-link ">
                       kanocitymal@gmail.com
                     </a>
                   </div>
@@ -146,7 +146,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="d-flex flex-column flex-lg-row justify-content-lg-between  font-arial">
+          <div className="d-flex flex-column flex-lg-row justify-content-lg-between  ">
             <p className="order-2 order-lg-1">
               Copyright© 2024 AITS HUBl. All Rights Reserved.
             </p>

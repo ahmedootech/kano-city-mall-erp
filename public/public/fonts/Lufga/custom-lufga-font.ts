@@ -3,88 +3,88 @@ import localFont from "next/font/local";
 const customLufga = localFont({
   src: [
     {
-      path: "./Fontspring-DEMO-lufga-thin.otf",
+      path: "./LufgaThin.ttf",
       weight: "100",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-thinitalic.otf",
+      path: "./LufgaThinItalic.ttf",
       weight: "100",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-light.otf",
+      path: "./LufgaLight.ttf",
       weight: "300",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-lightitalic.otf",
+      path: "./LufgaLightItalic.ttf",
       weight: "300",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-regular.otf",
+      path: "./LufgaRegular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-italic.otf",
+      path: "./LufgaItalic.ttf",
       weight: "400",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-medium.otf",
+      path: "./LufgaMedium.ttf",
       weight: "500",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-mediumitalic.otf",
+      path: "./LufgaMediumItalic.ttf",
       weight: "500",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-semibold.otf",
+      path: "./LufgaSemiBold.ttf",
       weight: "600",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-semibolditalic.otf",
+      path: "./LufgaSemiBoldItalic.ttf",
       weight: "600",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-bold.otf",
+      path: "./LufgaBold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-bolditalic.otf",
+      path: "./LufgaBoldItalic.ttf",
       weight: "700",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-extrabold.otf",
+      path: "./LufgaExtraBold.ttf",
       weight: "800",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-extrabolditalic.otf",
+      path: "./LufgaExtraBoldItalic.ttf",
       weight: "800",
       style: "italic",
     },
     {
-      path: "./Fontspring-DEMO-lufga-black.otf",
+      path: "./LufgaBlack.ttf",
       weight: "900",
       style: "normal",
     },
     {
-      path: "./Fontspring-DEMO-lufga-blackitalic.otf",
+      path: "./LufgaBlackItalic.ttf",
       weight: "900",
       style: "italic",
     },
   ],
-  variable: "--font-lufga", // Optional CSS variable
-  display: "swap", // Ensures better performance
+  variable: "--font-lufga",
+  display: "swap",
 });
 
 export default customLufga;

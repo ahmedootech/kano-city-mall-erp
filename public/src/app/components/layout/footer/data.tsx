@@ -8,22 +8,22 @@ export const contactList = [
     icon: ExploreIcon,
     title: "Location",
     description: (
-      <p className="font-arial">N0 8KL Kano City Mall , Kano State Nigeria.</p>
+      <p className="">N0 8KL Kano City Mall , Kano State Nigeria.</p>
     ),
   },
   {
     icon: PhoneSharpIcon,
     title: "Phone",
-    description: <p className="font-arial">(+234) 9113346612</p>,
+    description: <p className="">(+234) 9113346612</p>,
   },
   {
     icon: WhatsAppIcon,
     title: "Whatsapp",
-    description: <p className="font-arial">(+234) 9113346612</p>,
+    description: <p className="">(+234) 9113346612</p>,
   },
   {
     icon: EmailIcon,
     title: "Email",
-    description: <p className="font-arial">kanocitymall@gmail.com</p>,
+    description: <p className="">kanocitymall@gmail.com</p>,
   },
 ];
