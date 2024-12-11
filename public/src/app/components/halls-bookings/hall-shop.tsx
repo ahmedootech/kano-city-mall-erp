@@ -47,7 +47,7 @@ const HallShopCard: React.FC<{
           {/* <Modal.Title>Modal heading</Modal.Title> */}
         </Modal.Header>
         <Modal.Body className="pb-5">
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center mb-3">
             <Image
               src={"/images/logo.png"}
               alt=""
@@ -59,10 +59,10 @@ const HallShopCard: React.FC<{
           <Image
             src={image}
             alt=""
-            width={400}
+            width={350}
             height={200}
             style={{ objectFit: "cover" }}
-            className="rounded-3"
+            className="rounded-3 w-100"
           />
           <div className="my-4">
             <p className="my-0">
