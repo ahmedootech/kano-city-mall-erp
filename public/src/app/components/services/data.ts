@@ -32,8 +32,4 @@ export const servicesList = [
     title: "Flexible Leasing",
     description: "Options for corporate offices and custom rental packages",
   },
-  {
-    title: "Hassan Maryam",
-    description: "Options for corporate offices and custom rental packages",
-  },
 ];
