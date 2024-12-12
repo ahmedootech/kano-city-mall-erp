@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, FormEvent } from "react";
 import { TextField, InputAdornment, IconButton, Checkbox } from "@mui/material";
-import { Mail, Lock, Visibility, VisibilityOff } from "@mui/icons-material";
+import { Mail, Lock } from "@mui/icons-material";
 
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
@@ -13,12 +13,12 @@ import EmailIcon from "@mui/icons-material/Email";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
+import InputWithIcon from "../components/form-controls/input-with-icon/input-with-icon";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
-  const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
         <div className="col-lg-4 d-none d-lg-flex">
           <div className="">
             <Image
-              src="/images/login.png"
+              src="/images/login1.png"
               alt="Shopping Woman"
               width={734}
               height={834}
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
           </div>
         </div>
         <div className="col-lg-4">
-          <div className="px-3 px-lg-5">
+          <div className="px-3 px-lg-4">
             <div className="text-center">
               <Image
                 src="/images/logo.png"
@@ -61,76 +61,17 @@ const Login: React.FC = () => {
                 <label className="form-label fw-bold mb-2 text-danger">
                   Sign in
                 </label>
-                <TextField
-                  fullWidth
-                  variant="outlined"
+                <InputWithIcon
+                  name="email"
                   type="email"
-                  placeholder="Email"
-                  autoComplete="off"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Mail color="error" />
-                      </InputAdornment>
-                    ),
-                  }}
-                  color="error"
+                  LeftIcon={Mail}
+                  label="Email"
                 />
-              </div>
-
-              <div className="mb-3">
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock
-                          style={{ color: "#d32f2f", fontSize: "1.2rem" }}
-                        />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => setShowPassword(!showPassword)}
-                          edge="end"
-                          style={{ padding: "1" }}
-                        >
-                          {showPassword ? (
-                            <VisibilityOff
-                              style={{ color: "#d32f2f", fontSize: "1.2rem" }}
-                            />
-                          ) : (
-                            <Visibility
-                              style={{ color: "#d32f2f", fontSize: "1.2rem" }}
-                            />
-                          )}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "white",
-                      borderRadius: "8px",
-                    },
-                    "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#d32f2f",
-                    },
-                    "& .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#ccc",
-                    },
-                  }}
-                  color="error"
+                <InputWithIcon
+                  name="password"
+                  type="password"
+                  LeftIcon={Lock}
+                  label="Password"
                 />
               </div>
 
@@ -164,8 +105,6 @@ const Login: React.FC = () => {
                     Forgot Password?
                   </a>
                 </div>
-
-                {/* Remember Me Checkbox */}
               </div>
 
               <button type="submit" className="btn btn-danger w-100 py-2">
