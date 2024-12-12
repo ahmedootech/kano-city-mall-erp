@@ -27,7 +27,7 @@ const Login: React.FC = () => {
 
   return (
     <div className="container-fluid bg-white">
-      <div className="row vh-100 align-items-center justify-content-center">
+      <div className="row min-vh-100 align-items-center justify-content-center">
         <div className="col-lg-4 d-none d-lg-flex">
           <div className="">
             <Image
@@ -43,7 +43,7 @@ const Login: React.FC = () => {
           </div>
         </div>
         <div className="col-lg-4">
-          <div className="py-2 px-3 px-lg-5">
+          <div className="px-3 px-lg-5">
             <div className="text-center">
               <Image
                 src="/images/logo.png"
