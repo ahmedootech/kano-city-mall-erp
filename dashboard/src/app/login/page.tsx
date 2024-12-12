@@ -26,15 +26,15 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="container-fluid d-flex justify-content-center bg-white">
-      <div className="row vh-100 d-flex align-items-center">
-        <div className="col-lg-6 d-none d-md-flex">
+    <div className="container-fluid bg-white">
+      <div className="row vh-100 align-items-center justify-content-center">
+        <div className="col-lg-4 d-none d-lg-flex">
           <div className="">
             <Image
               src="/images/login.png"
               alt="Shopping Woman"
-              width={600}
-              height={400}
+              width={734}
+              height={834}
               className="img-fluid rounded-start-5"
               style={{
                 objectFit: "cover",
@@ -42,18 +42,18 @@ const Login: React.FC = () => {
             />
           </div>
         </div>
-        <div className="col-lg-6 d-flex flex-column">
-          <div className="my-2 px-5">
+        <div className="col-lg-4">
+          <div className="py-2 px-3 px-lg-5">
             <div className="text-center">
               <Image
                 src="/images/logo.png"
                 alt="Logo"
-                width={189}
-                height={58}
+                width={160}
+                height={48}
                 className=""
                 style={{ objectFit: "contain" }}
               />
-              <h4 className="text-dark my-2 fw-normal">Welcome Back 👋</h4>
+              <h5 className="text-dark mt-1 mb-2 fw-normal">Welcome Back 👋</h5>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -134,7 +134,7 @@ const Login: React.FC = () => {
                 />
               </div>
 
-              <div className="mb-4">
+              <div className="mb-3">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <div className="d-flex align-items-center">
                     <Checkbox
@@ -183,7 +183,7 @@ const Login: React.FC = () => {
                 <div className="d-flex flex-column align-items-center">
                   <div className="d-flex justify-content-center align-items-center gap-2">
                     <SupportAgentIcon />
-                    <p className="text-danger mt-2 mb-0">Customer Support</p>
+                    <p className="text-danger mt-1 mb-0">Customer Support</p>
                   </div>
                   <p className="form-text fw-semibold mb-3">
                     Call/Chat with us or send an email
