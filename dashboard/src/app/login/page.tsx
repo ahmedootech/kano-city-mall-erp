@@ -16,13 +16,13 @@ import XIcon from "@mui/icons-material/X";
 import InputWithIcon from "../components/form-controls/input-with-icon/input-with-icon";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  // const [email, setEmail] = useState<string>("");
+  // const [password, setPassword] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({ email, password, rememberMe });
+    // console.log({ email, password, rememberMe });
   };
 
   return (

@@ -1,65 +1,67 @@
-import { useState } from "react";
-import { IconType } from "react-icons";
-
+import { Controller, Control } from "react-hook-form";
 interface InputProps {
-  name: string;
-  type: string;
   label?: string;
-  LeftIcon?: IconType | any;
+  type: string;
+  name: string;
   required?: boolean;
+  control: Control;
   disabled?: boolean;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
-
 const Input: React.FC<InputProps> = ({
-  LeftIcon,
   label,
   type,
   name,
   disabled,
+  control,
   onChange,
   onFocus,
   onBlur,
 }) => {
-  const [showLabel, setShowLabel] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-
   return (
-    <div
-      className={`position-relative border rounded d-flex align-items-end px-2 gap-2 pb-3 pt-4`}
-    >
-      {LeftIcon && <LeftIcon />}
-      <div className=" w-100">
-        <label
-          className={`form-label form-text text-secondary position-absolute transition-label top-0 ${
-            showLabel || inputValue.length > 0 ? "label-visible" : ""
-          }`}
-        >
-          {label}
+    <div className="py-1">
+      {label && (
+        <label htmlFor="" className={`form-label fw-bold text-dark mb-1`}>
+          {label}:
         </label>
-        <input
-          type={type}
-          name={name}
-          className="flex-grow-1 border-0 form-control shadow-none px-0 py-0"
-          placeholder={!showLabel ? label : ""}
-          onFocus={(event) => {
-            onFocus?.(event);
-            setShowLabel(true);
-          }}
-          onBlur={(event) => {
-            onBlur?.(event);
-            setShowLabel(false);
-          }}
-          onChange={(event) => {
-            onChange?.(event);
-            setInputValue(event.target.value);
-          }}
-        />
-      </div>
+      )}
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState: { error } }) => (
+          <>
+            <input
+              type={type}
+              className={`form-control py-2 px-2 shadow-none`}
+              placeholder={label}
+              {...field}
+              disabled={disabled}
+              onChange={(event) => {
+                field.onChange(event); // React-hook-form's change handling
+                if (onChange) {
+                  onChange(event); // Call the provided onChange if available
+                }
+              }}
+              onFocus={(event) => {
+                if (onFocus) {
+                  onFocus(event); // Call the provided onChange if available
+                }
+              }}
+              onBlur={(event: any) => {
+                if (onBlur) {
+                  onBlur(event); // Call the provided onChange if available
+                }
+              }}
+            />
+            {error ? (
+              <p className="form-text text-danger p-0 m-0">{error.message}</p>
+            ) : null}
+          </>
+        )}
+      />
     </div>
   );
 };
-
 export default Input;

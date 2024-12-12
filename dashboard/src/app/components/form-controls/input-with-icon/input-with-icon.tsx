@@ -53,6 +53,7 @@ const Input: React.FC<InputProps> = ({
           }
           name={name}
           className="flex-grow-1 border-0 form-control shadow-none px-0 py-0 text-dark-75"
+          disabled={disabled}
           placeholder={!showLabel ? label : ""}
           onFocus={(event) => {
             onFocus?.(event);
