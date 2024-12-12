@@ -49,7 +49,7 @@ const Input: React.FC<InputProps> = ({
                   onFocus(event); // Call the provided onChange if available
                 }
               }}
-              onBlur={(event: any) => {
+              onBlur={(event) => {
                 if (onBlur) {
                   onBlur(event); // Call the provided onChange if available
                 }

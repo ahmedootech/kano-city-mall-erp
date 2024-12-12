@@ -7,6 +7,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 interface InputProps {
   name: string;
   type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   LeftIcon: IconType | any;
   label: string;
   required?: boolean;
