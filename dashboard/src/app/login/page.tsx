@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, FormEvent } from "react";
-import { TextField, InputAdornment, IconButton, Checkbox } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import { Mail, Lock } from "@mui/icons-material";
 
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
