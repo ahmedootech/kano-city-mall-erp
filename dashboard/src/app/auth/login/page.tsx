@@ -21,9 +21,9 @@ import InputWithIcon from "../../components/form-controls/input-with-icon/input-
 
 import { toast } from "react-toastify";
 import { LoginCredentials } from "@/store/features/auth/types";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions } from "@/store/features/auth";
-import { AppDispatch, RootState } from "@/store";
+import { AppDispatch } from "@/store";
 import { useRouter } from "next/navigation";
 
 const defaultValues = {
