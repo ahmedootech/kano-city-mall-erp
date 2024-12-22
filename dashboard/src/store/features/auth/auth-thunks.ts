@@ -14,12 +14,7 @@ export const login = createAsyncThunk<UserType, LoginCredentials>(
       const response = await api.post("/users/login", credentials);
       const { token, user } = response.data.data;
       setAuthToken(token);
-      //   const transformedModules = user.modules.reduce((acc: any, item: any) => {
-      //     const [key, value] = Object.entries(item)[0];
-      //     acc[key] = value;
-      //     return acc;
-      //   }, {});
-      //   user.modules = transformedModules;
+
       return user as UserType;
     } catch (err: any) {
       if (err.response && err.response.data) {
@@ -39,13 +34,8 @@ export const initializeUser = createAsyncThunk<UserType, void>(
         "/users/get-user-by-token"
       );
       console.log(response);
-      const { token, user } = response.data.data;
-      //   const transformedModules = user.modules.reduce((acc: any, item: any) => {
-      //     const [key, value] = Object.entries(item)[0];
-      //     acc[key] = value;
-      //     return acc;
-      //   }, {});
-      //   user.modules = transformedModules;
+      const { user } = response.data.data;
+
       return user as UserType;
     } catch (err: any) {
       if (err.response && err.response.data) {

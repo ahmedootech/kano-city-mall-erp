@@ -16,7 +16,7 @@ const ModulesLayout = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (isInitial) dispatch(authActions.main.initializeUser());
-  }, []);
+  }, [dispatch]);
   return (
     <>
       {auth.loading ? (

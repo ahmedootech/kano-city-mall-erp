@@ -1,18 +1,10 @@
 "use client";
 import ActiveLink from "./active-link";
-import { CiSettings } from "react-icons/ci";
-
-import { LuHouse } from "react-icons/lu";
-import { TbUsersGroup } from "react-icons/tb";
-import { PiChartDonutLight } from "react-icons/pi";
-import { LuSquareActivity } from "react-icons/lu";
 import { PiBuildingApartment } from "react-icons/pi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RiGroupLine } from "react-icons/ri";
 import { MdDashboard } from "react-icons/md";
-import { FcDepartment } from "react-icons/fc";
 import { slugify } from "@/utils";
-import { navigation } from "./data";
 import LogoutButton from "../../logout-button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";

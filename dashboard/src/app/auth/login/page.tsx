@@ -33,7 +33,6 @@ const defaultValues = {
 const Login: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
-  const auth = useSelector((state: RootState) => state.auth.main);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
   const loginSchema = yup.object().shape({
@@ -48,7 +47,7 @@ const Login: React.FC = () => {
   });
   const handleSubmit = async (data: LoginCredentials) => {
     try {
-      const result = await dispatch(
+      await dispatch(
         authActions.main.login({ email: data.email, password: data.password })
       ).unwrap();
 

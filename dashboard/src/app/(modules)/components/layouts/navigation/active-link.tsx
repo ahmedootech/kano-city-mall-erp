@@ -8,12 +8,7 @@ interface ActiveLinkProps extends LinkProps {
   activeClassName?: string;
 }
 
-const ActiveLink = ({
-  href,
-  children,
-  activeClassName = "active",
-  ...props
-}: ActiveLinkProps) => {
+const ActiveLink = ({ href, children, ...props }: ActiveLinkProps) => {
   const pathname = usePathname();
 
   // Check if the current path is the same as the link's href

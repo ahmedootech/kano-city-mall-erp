@@ -9,7 +9,7 @@ type LogoProps = {
 };
 
 const Logo: React.FC<LogoProps> = ({ width, height }) => {
-  const [logo, setLogo] = useState("/images/logo.png");
+  const [logo] = useState("/images/logo.png");
 
   return (
     <Image

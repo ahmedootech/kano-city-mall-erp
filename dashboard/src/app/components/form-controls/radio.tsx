@@ -1,14 +1,5 @@
-import React from 'react';
-import {
-  Controller,
-  useFormContext,
-  FieldError,
-  Control,
-  RegisterOptions,
-  UseFormRegister,
-  FieldName,
-  FieldValue,
-} from 'react-hook-form';
+import React from "react";
+import { UseFormRegister } from "react-hook-form";
 interface InputProps {
   label?: string;
   value: string;
@@ -32,9 +23,9 @@ const Radio: React.FC<InputProps> = ({
       <label className="form-label">
         <input
           type="radio"
-          name={name}
           value={value}
           {...register(name, { required })}
+          name={name}
         />
         <span className="ms-1 me-3">{label}</span>
       </label>
