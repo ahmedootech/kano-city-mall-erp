@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 export default function Home() {
   return (
     <div className={styles.page}>
+      <h1 className="tw-text-gray-300 tw-bg-red-500">Hello</h1>
       <main className={styles.main}>
         <Image
           className={styles.logo}

@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IconType } from "react-icons";
 import styles from "./input-with-icon.module.css";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { MdVisibility } from "react-icons/md";
+import { MdVisibilityOff } from "react-icons/md";
+import { Controller, Control } from "react-hook-form";
 
 interface InputProps {
   name: string;
   type: string;
+  control: Control;
+  value?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  LeftIcon: IconType | any;
+  LeftIcon: IconType;
   label: string;
   required?: boolean;
   disabled?: boolean;
@@ -17,28 +20,34 @@ interface InputProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 
-const Input: React.FC<InputProps> = ({
+const InputWithIcon: React.FC<InputProps> = ({
   LeftIcon,
   label,
+  control,
   type,
   name,
+  value,
   disabled,
   onChange,
   onFocus,
   onBlur,
 }) => {
+  const inputRef = useRef<HTMLElement | null>(null);
   const [showLabel, setShowLabel] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   return (
     <div
-      className={`position-relative border rounded d-flex align-items-end px-2 gap-2 pb-3 pt-4 mb-2 ${
+      className={`position-relative border rounded d-flex align-items-end px-2 gap-2 pb-2 pt-4 mb-2 ${
         showLabel && "border-danger"
       }`}
     >
-      <LeftIcon className="text-danger" />
-      <div className=" w-100">
+      <LeftIcon className="text-danger fs-4" />
+      <div
+        className="w-100 tw-cursor-pointer"
+        onClick={() => inputRef.current?.focus()}
+      >
         <label
           className={`form-label form-text text-secondary position-absolute top-0  ${
             styles["transition-label"]
@@ -48,38 +57,64 @@ const Input: React.FC<InputProps> = ({
         >
           {label}
         </label>
-        <input
-          type={
-            type === "password" ? (showPassword ? "text" : "password") : type
-          }
+        <Controller
           name={name}
-          className="flex-grow-1 border-0 form-control shadow-none px-0 py-0 text-dark-75"
-          disabled={disabled}
-          placeholder={!showLabel ? label : ""}
-          onFocus={(event) => {
-            onFocus?.(event);
-            setShowLabel(true);
-          }}
-          onBlur={(event) => {
-            onBlur?.(event);
-            setShowLabel(false);
-          }}
-          onChange={(event) => {
-            onChange?.(event);
-            setInputValue(event.target.value);
+          control={control}
+          render={({ field, fieldState: { error } }) => {
+            return (
+              <>
+                <input
+                  type={
+                    type === "password"
+                      ? showPassword
+                        ? "text"
+                        : "password"
+                      : type
+                  }
+                  {...field}
+                  ref={(element) => {
+                    inputRef.current = element; // Assign input element to ref
+                    field.ref(element); // Pass the ref to react-hook-form
+                  }}
+                  value={value ? value : field.value}
+                  className="flex-grow-1 border-0 form-control shadow-none px-0 py-0 text-dark-75"
+                  disabled={disabled}
+                  placeholder={!showLabel ? label : ""}
+                  onFocus={(event) => {
+                    onFocus?.(event);
+                    setShowLabel(true);
+                  }}
+                  onBlur={(event) => {
+                    onBlur?.(event);
+                    field.onBlur();
+                    setShowLabel(false);
+                  }}
+                  onChange={(event) => {
+                    onChange?.(event);
+                    field.onChange(event);
+                    setInputValue(event.target.value);
+                  }}
+                />
+                {error ? (
+                  <p className="form-text text-danger p-0 m-0">
+                    {error.message}
+                  </p>
+                ) : null}
+              </>
+            );
           }}
         />
       </div>
       {type === "password" ? (
         showPassword ? (
-          <VisibilityOff
+          <MdVisibilityOff
             onClick={() => setShowPassword(false)}
-            className="cursor-pointer text-danger"
+            className="cursor-pointer text-danger tw-cursor-pointer fs-4"
           />
         ) : (
-          <Visibility
+          <MdVisibility
             onClick={() => setShowPassword(true)}
-            className="cursor-pointer text-danger"
+            className="cursor-pointer text-danger tw-cursor-pointer fs-4"
           />
         )
       ) : null}
@@ -87,4 +122,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default InputWithIcon;

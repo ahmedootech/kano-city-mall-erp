@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Checkbox } from "@mui/material";
-import { Mail, Lock } from "@mui/icons-material";
+import { MdOutlineMail } from "react-icons/md";
+import * as yup from "yup";
+import { FieldValues, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
@@ -10,19 +13,50 @@ import FacebookRoundedIcon from "@mui/icons-material/FacebookRounded";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 import EmailIcon from "@mui/icons-material/Email";
+import { IoMdLock } from "react-icons/io";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
-import InputWithIcon from "../components/form-controls/input-with-icon/input-with-icon";
+import InputWithIcon from "../../components/form-controls/input-with-icon/input-with-icon";
 
+import { toast } from "react-toastify";
+import { LoginCredentials } from "@/store/features/auth/types";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "@/store/features/auth";
+import { AppDispatch, RootState } from "@/store";
+import { useRouter } from "next/navigation";
+
+const defaultValues = {
+  email: "",
+  password: "",
+};
 const Login: React.FC = () => {
-  // const [email, setEmail] = useState<string>("");
-  // const [password, setPassword] = useState<string>("");
+  const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const auth = useSelector((state: RootState) => state.auth.main);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // console.log({ email, password, rememberMe });
+  const loginSchema = yup.object().shape({
+    email: yup.string().email().required("Email address is required"),
+    password: yup.string().required("Password is required"),
+  });
+
+  const methods = useForm<FieldValues | any>({
+    defaultValues,
+    mode: "onChange",
+    resolver: yupResolver(loginSchema),
+  });
+  const handleSubmit = async (data: LoginCredentials) => {
+    try {
+      const result = await dispatch(
+        authActions.main.login({ email: data.email, password: data.password })
+      ).unwrap();
+
+      toast.success("Login successful!");
+      router.replace("/");
+    } catch (err: any) {
+      toast.error(err.message || "Login failed. Please try again.");
+    }
   };
 
   return (
@@ -44,7 +78,7 @@ const Login: React.FC = () => {
             </div>
             <div className="col-lg-6">
               <div className="px-3 px-lg-4 py-5">
-                <div className="text-center">
+                <div className="text-center d-flex flex-column align-items-center">
                   <Image
                     src="/images/logo.png"
                     alt="Logo"
@@ -53,12 +87,12 @@ const Login: React.FC = () => {
                     className=""
                     style={{ objectFit: "contain" }}
                   />
-                  <h5 className="text-dark mt-1 mb-2 fw-normal">
+                  <h4 className="text-dark mt-1 mb-2 fw-normal">
                     Welcome Back 👋
-                  </h5>
+                  </h4>
                 </div>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={methods.handleSubmit(handleSubmit)}>
                   <div className="mb-3">
                     <label className="form-label fw-bold mb-2 text-danger">
                       Sign in
@@ -66,14 +100,16 @@ const Login: React.FC = () => {
                     <InputWithIcon
                       name="email"
                       type="email"
-                      LeftIcon={Mail}
+                      LeftIcon={MdOutlineMail}
                       label="Email"
+                      control={methods.control}
                     />
                     <InputWithIcon
                       name="password"
                       type="password"
-                      LeftIcon={Lock}
+                      LeftIcon={IoMdLock}
                       label="Password"
+                      control={methods.control}
                     />
                   </div>
 

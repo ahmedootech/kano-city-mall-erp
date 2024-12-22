@@ -1,21 +1,32 @@
-import { Controller, Control } from "react-hook-form";
+import {
+  Controller,
+  useFormContext,
+  FieldError,
+  Control,
+} from "react-hook-form";
 interface InputProps {
   label?: string;
+  placeholder?: string;
   type: string;
   name: string;
   required?: boolean;
   control: Control;
   disabled?: boolean;
+  value?: string;
+  list?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 }
 const Input: React.FC<InputProps> = ({
   label,
+  placeholder,
   type,
   name,
   disabled,
   control,
+  value,
+  list,
   onChange,
   onFocus,
   onBlur,
@@ -23,7 +34,11 @@ const Input: React.FC<InputProps> = ({
   return (
     <div className="py-1">
       {label && (
-        <label htmlFor="" className={`form-label fw-bold text-dark mb-1`}>
+        <label
+          htmlFor=""
+          className="form-label fw-semibold mb-0"
+          style={{ fontSize: "16px" }}
+        >
           {label}:
         </label>
       )}
@@ -34,9 +49,11 @@ const Input: React.FC<InputProps> = ({
           <>
             <input
               type={type}
-              className={`form-control py-2 px-2 shadow-none`}
-              placeholder={label}
+              className="form-control form-control-sm py-2 px-2 shadow-none"
+              placeholder={placeholder ? placeholder : label}
+              list={list}
               {...field}
+              value={value ? value : field.value}
               disabled={disabled}
               onChange={(event) => {
                 field.onChange(event); // React-hook-form's change handling
@@ -49,7 +66,7 @@ const Input: React.FC<InputProps> = ({
                   onFocus(event); // Call the provided onChange if available
                 }
               }}
-              onBlur={(event) => {
+              onBlur={(event: any) => {
                 if (onBlur) {
                   onBlur(event); // Call the provided onChange if available
                 }
