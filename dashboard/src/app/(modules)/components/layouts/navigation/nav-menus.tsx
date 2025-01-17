@@ -8,6 +8,8 @@ import { slugify } from "@/utils";
 import LogoutButton from "../../logout-button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import Dropdown from "./drop-down";
+import { IconType } from "react-icons";
 
 // Mapping icons to their keys
 const iconMap: Record<string, React.ComponentType> = {
@@ -24,18 +26,24 @@ const NavMenus = () => {
   return (
     <div className="d-flex flex-column h-100 pb-3">
       <div className="flex-grow-1">
-        <div className="ms-2 d-flex flex-column">
+        <div className="ms-1 d-flex flex-column">
           <ActiveLink href={`/dashboard`}>
             <MdDashboard />
             Dashboard
           </ActiveLink>
           {Object.keys(modules!).map((module, i) => {
-            const Icon = iconMap[module] || MdDashboard;
+            const Icon = (iconMap[module] || MdDashboard) as IconType;
             return (
-              <ActiveLink key={i} href={`/${slugify(module)}`}>
-                <Icon />
-                {module}
-              </ActiveLink>
+              <Dropdown
+                key={i}
+                label={module}
+                submenus={modules ? Object.keys(modules[module]) : []}
+                Icon={Icon}
+              />
+              // <ActiveLink key={i} href={`/${slugify(module)}`}>
+              //   <Icon />
+              //   {module}
+              // </ActiveLink>
             );
           })}
         </div>

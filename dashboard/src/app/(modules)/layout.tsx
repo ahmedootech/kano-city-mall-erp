@@ -20,9 +20,9 @@ const ModulesLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       {auth.loading ? (
-        <div className="min-vh-100 d-flex mw-100 align-items-center justify-content-center">
+        <div className="min-vh-100 d-flex mw-100 align-items-center justify-content-center gap-3">
           <Logo />
-          <CircularProgress className="text-primary" />
+          <CircularProgress className="text-danger" />
         </div>
       ) : (
         <div className="d-block d-lg-flex min-vh-100 mw-100">

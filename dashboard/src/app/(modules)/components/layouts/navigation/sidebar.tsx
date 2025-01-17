@@ -5,7 +5,7 @@ const SideBar = () => {
   return (
     <aside
       className="min-vh-100 flex-column d-none d-lg-flex bg-dark text-white "
-      style={{ width: "220px" }}
+      style={{ width: "250px" }}
     >
       <div className="px-3 py-2 tw-h-[48px] border-bottom d-flex align-items-center justify-content-center">
         <Logo width={104} height={38} />

@@ -21,9 +21,10 @@ const ActiveLink = ({ href, children, ...props }: ActiveLinkProps) => {
     <Link
       href={href}
       {...props}
-      className={`nav-link d-flex align-items-center gap-1 p-2 rounded-end-1 ${
-        isActive ? "tw-bg-gray-100 fw-semibold " : "tw-text-gray-500"
-      }`}
+      className={`nav-link d-flex align-items-center gap-1
+         p-2 rounded-end-1 ${
+           isActive ? "tw-bg-yellow-500 fw-semibold " : "tw-text-gray-500"
+         }`}
     >
       {children}
     </Link>
