@@ -18,7 +18,6 @@ const Dropdown: React.FC<DropdownType> = ({
   label,
   submenus,
   Icon = MdDashboard,
-  path,
 }) => {
   const pathname = usePathname();
   const [showSubmenu, setShowSubmenu] = useState(false);

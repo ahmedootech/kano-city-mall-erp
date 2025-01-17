@@ -1,4 +1,3 @@
-import { config } from "@/utils/config";
 import Head from "next/head";
 import Link from "next/link";
 import { ReactNode } from "react";

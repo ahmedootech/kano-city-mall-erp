@@ -46,18 +46,19 @@ const Login: React.FC = () => {
     resolver: yupResolver(loginSchema),
   });
   const handleSubmit = async (data: LoginCredentials) => {
- 
-      dispatch(
-        authActions.main.login({ email: data.email, password: data.password })
-      ).unwrap().then(res=>{
+    dispatch(
+      authActions.main.login({ email: data.email, password: data.password })
+    )
+      .unwrap()
+      .then(() => {
         toast.success("Login successful!");
         router.replace("/");
-      }).catch (err => {
-        console.log(err)
-      toast.error(err.message || "Login failed. Please try again.");
-    });
-
-  }
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message || "Login failed. Please try again.");
+      });
+  };
   return (
     <div className="container-fluid bg-white">
       <div className="row justify-content-center min-vh-100 align-items-center justify-content-center ">

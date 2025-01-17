@@ -4,7 +4,6 @@ import { PiBuildingApartment } from "react-icons/pi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { RiGroupLine } from "react-icons/ri";
 import { MdDashboard } from "react-icons/md";
-import { slugify } from "@/utils";
 import LogoutButton from "../../logout-button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
