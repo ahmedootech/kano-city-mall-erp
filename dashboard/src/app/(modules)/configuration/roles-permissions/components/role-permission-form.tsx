@@ -14,7 +14,6 @@ import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { toast } from "react-toastify";
 import { Role } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
-import { AxiosError } from "axios";
 const defaultValues = {
   title: "",
 };
