@@ -116,7 +116,7 @@ const RolesPermissions = () => {
                           role="switch"
                           title="status"
                           checked={Number(role.status) === 1}
-                          onChange={async (e) => {
+                          onChange={async () => {
                             // const newStatus = e.target.checked ? 1 : 0;
                             return;
                             try {

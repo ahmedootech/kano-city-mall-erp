@@ -78,7 +78,7 @@ const RolesPermissionsForm: React.FC<{
 
     // Update permissions in formData based on "Select All" checkbox
     if (rolePermissions)
-      setModules((prevModules: any) => {
+      setModules(() => {
         const newModules = isChecked
           ? rolePermissions.map((module) => String(module.id))
           : [];
@@ -103,7 +103,7 @@ const RolesPermissionsForm: React.FC<{
         setModules([]);
       }
       setRefetch(true);
-    } catch (err: AxiosError | any) {
+    } catch (err: any) {
       console.log(err);
       const errors = err.response.data.errors;
       if (typeof errors === "object") {
