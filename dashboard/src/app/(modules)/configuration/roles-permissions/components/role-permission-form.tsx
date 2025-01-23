@@ -1,0 +1,170 @@
+import * as yup from "yup";
+import { FieldValues, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import React, {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
+import { Input } from "reactstrap";
+import CustomInput from "@/app/components/form-controls/input";
+import { getApiClientInstance } from "@/utils/axios/axios-client";
+import { toast } from "react-toastify";
+import { Role } from "../types";
+import { handleYupErrors } from "@/utils/yup-form-helpers";
+import { AxiosError } from "axios";
+const defaultValues = {
+  title: "",
+};
+
+const dummyRolesPermissions = [
+  { id: 1, name: "Roles & Permissions" },
+  { id: 2, name: "Users management Module" },
+  { id: 3, name: "Departments management Module" },
+  { id: 4, name: "Employees management Module" },
+];
+
+// const randomBg = () => {
+//   const bgs = ["blue", "orange", "green"];
+
+//   const bg = bgs[Math.floor(Math.random() * bgs.length)];
+//   return `tw-bg-${bg}-500`;
+// };
+
+const RolesPermissionsForm: React.FC<{
+  role?: Role | null;
+  setRefetch: Dispatch<SetStateAction<boolean>>;
+}> = ({ role = null, setRefetch }) => {
+  const [modules, setModules] = useState<any[]>([]);
+  const [rolePermissions, setRolePermissions] = useState<any[]>(
+    dummyRolesPermissions
+  );
+
+  const api = getApiClientInstance();
+  console.log("selected", role);
+  useEffect(() => {
+    if (role) {
+      methods.reset({ title: role.title });
+
+      const mods = role.modules.map((mod) => String(mod.id));
+      console.log("mods", mods);
+      setModules(mods);
+    }
+  }, [role]);
+  const rolesPermissionsSchema = yup.object().shape({
+    title: yup.string().required("Please enter role title"),
+  });
+
+  const methods = useForm<FieldValues | any>({
+    defaultValues,
+    resolver: yupResolver(rolesPermissionsSchema),
+  });
+
+  const handlePermissionChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const permissionId = event.target.value;
+    const isChecked = event.target.checked;
+
+    // Update permissions in formData based on checkbox changes
+    setModules((prevModules: any) => {
+      const newModules = isChecked
+        ? [...prevModules, permissionId]
+        : prevModules.filter((id: any) => id !== permissionId);
+      return newModules;
+    });
+  };
+
+  const handleSelectAllChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const isChecked = event.target.checked;
+
+    // Update permissions in formData based on "Select All" checkbox
+    if (rolePermissions)
+      setModules((prevModules: any) => {
+        const newModules = isChecked
+          ? rolePermissions.map((module) => String(module.id))
+          : [];
+
+        return newModules;
+      });
+  };
+  const handleSubmit = async (data: any) => {
+    try {
+      const payload = {
+        title: data.title,
+        modules: modules,
+      };
+
+      if (role) {
+        await api.post(`/permissions/edit-role/${role.id}`, payload);
+        toast.success("Role updated successfully");
+      } else {
+        await api.post("/permissions/create-new-role", payload);
+        toast.success("Role created successfully");
+        methods.reset(defaultValues);
+        setModules([]);
+      }
+      setRefetch(true);
+    } catch (err: AxiosError | any) {
+      console.log(err);
+      const errors = err.response.data.errors;
+      if (typeof errors === "object") {
+        handleYupErrors({
+          formFields: data,
+          serverError: errors,
+          yupSetError: methods.setError,
+        });
+      } else {
+        toast.error(err.data.message);
+      }
+    }
+    console.log(data);
+    console.log(modules);
+  };
+  return (
+    <div className="px-3 pb-5 mb-5">
+      <form action="" onSubmit={methods.handleSubmit(handleSubmit)}>
+        <CustomInput
+          label="Role"
+          name="title"
+          control={methods.control}
+          type="text"
+          placeholder="Role"
+        />
+        <div className="d-flex flex-column gap-3 mt-2">
+          <div className="">
+            <h5 className="tw-text-base">Modules & Permissions </h5>
+            <label className="fs-6">
+              Select all{" "}
+              <Input type="checkbox" onChange={handleSelectAllChange} />
+            </label>
+          </div>
+
+          {rolePermissions.map((module, index) => {
+            return (
+              <label key={index} className="me-2 gap-1 tw-text-sm">
+                <Input
+                  type="checkbox"
+                  name="modules"
+                  value={module.id}
+                  checked={modules.includes(String(module.id))}
+                  onChange={handlePermissionChange}
+                />{" "}
+                <span className={`tw-bg-gray-300 py-0 px-1 tw-rounded-sm me-1`}>
+                  {module.name[0]}
+                </span>
+                {module.name}
+              </label>
+            );
+          })}
+        </div>
+
+        <button className={`btn btn-${role ? "primary" : "danger"} w-100 mt-5`}>
+          {role ? "Update" : "Create Role"}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default RolesPermissionsForm;
