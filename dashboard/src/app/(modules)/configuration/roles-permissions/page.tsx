@@ -117,7 +117,7 @@ const RolesPermissions = () => {
                           title="status"
                           checked={Number(role.status) === 1}
                           onChange={async (e) => {
-                            const newStatus = e.target.checked ? 1 : 0;
+                            // const newStatus = e.target.checked ? 1 : 0;
                             return;
                             try {
                               const response = await api.post(
@@ -126,6 +126,7 @@ const RolesPermissions = () => {
                                   id: role.id,
                                 }
                               );
+                              console.log(response);
 
                               // if (response.data.success) {
                               //   const updatedUsers = users.map((user: User) =>

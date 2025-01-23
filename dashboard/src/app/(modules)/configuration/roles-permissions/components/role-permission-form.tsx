@@ -38,9 +38,7 @@ const RolesPermissionsForm: React.FC<{
   setRefetch: Dispatch<SetStateAction<boolean>>;
 }> = ({ role = null, setRefetch }) => {
   const [modules, setModules] = useState<any[]>([]);
-  const [rolePermissions, setRolePermissions] = useState<any[]>(
-    dummyRolesPermissions
-  );
+  const [rolePermissions] = useState<any[]>(dummyRolesPermissions);
 
   const api = getApiClientInstance();
   console.log("selected", role);
