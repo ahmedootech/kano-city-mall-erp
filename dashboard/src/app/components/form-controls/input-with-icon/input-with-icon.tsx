@@ -39,7 +39,7 @@ const InputWithIcon: React.FC<InputProps> = ({
 
   return (
     <div
-      className={`position-relative border rounded d-flex align-items-end px-2 gap-2 pb-2 pt-4 mb-2 ${
+      className={`position-relative border rounded d-flex align-items-end px-2 gap-2 pb-2 pt-4 mb-3 ${
         showLabel && "border-danger"
       }`}
     >

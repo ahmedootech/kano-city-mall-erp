@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthType, UserType } from "./types";
 import { initializeUser, login } from "./auth-thunks";
+import { clearAuthToken } from "@/utils/auth";
 
 const initialState: AuthType = {
   isAuthenticated: false,
@@ -15,6 +16,7 @@ const authSlice = createSlice({
     logoutUser: (state) => {
       state.isAuthenticated = false;
       state.user = null;
+      clearAuthToken();
     },
 
     setLoading: (state, action: PayloadAction<boolean>) => {

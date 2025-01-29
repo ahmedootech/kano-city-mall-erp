@@ -8,14 +8,22 @@ import { AppDispatch, RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import Logo from "../components/logo";
 import { CircularProgress } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const isInitial = true;
 const ModulesLayout = ({ children }: { children: React.ReactNode }) => {
+  const router = useRouter();
   const auth = useSelector((state: RootState) => state.auth.main);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    if (isInitial) dispatch(authActions.main.initializeUser());
+    if (isInitial)
+      dispatch(authActions.main.initializeUser())
+        .unwrap()
+        .catch((err) => {
+          console.log("errr", err);
+          router.replace("/auth/login");
+        });
   }, [dispatch]);
   return (
     <>

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginCredentials, UserType } from "./types";
-import { setAuthToken } from "@/utils/auth";
+import { getAuthToken, setAuthToken } from "@/utils/auth";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 
 export const login = createAsyncThunk<UserType, LoginCredentials>(
@@ -12,16 +12,16 @@ export const login = createAsyncThunk<UserType, LoginCredentials>(
     try {
       const api = getApiClientInstance();
       const response = await api.post("/users/login", credentials);
-      console.log(response)
+      console.log(response);
       const { token, user } = response.data.data;
       setAuthToken(token);
 
       return user as UserType;
     } catch (err: any) {
-      console.log(err)
+      console.log(err);
       if (err.response && err.response.data) {
         return rejectWithValue(err.response.data.message);
-      } 
+      }
       return rejectWithValue(err.message || "Login failed");
     }
   }
@@ -30,20 +30,26 @@ export const login = createAsyncThunk<UserType, LoginCredentials>(
 export const initializeUser = createAsyncThunk<UserType, void>(
   "auth/initialize-user",
   async (_, { rejectWithValue }): Promise<UserType | string | any> => {
-    try {
-      const response = await getApiClientInstance().get(
-        "/users/get-user-by-token"
-      );
-      console.log(response);
-      const { user } = response.data.data;
+    const token = getAuthToken();
+    console.log("token", token);
+    if (token) {
+      try {
+        const response = await getApiClientInstance().get(
+          "/users/get-user-by-token"
+        );
+        console.log(response);
+        const { user } = response.data.data;
 
-      return user as UserType;
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        rejectWithValue(err.response.data.message);
-      } else {
-        return rejectWithValue("Failed to user data");
+        return user as UserType;
+      } catch (err: any) {
+        if (err.response && err.response.data) {
+          rejectWithValue(err.response.data.message);
+        } else {
+          return rejectWithValue("Failed to user data");
+        }
       }
+    } else {
+      return rejectWithValue("Failed no token");
     }
   }
 );

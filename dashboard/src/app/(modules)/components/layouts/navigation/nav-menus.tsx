@@ -30,21 +30,23 @@ const NavMenus = () => {
             <MdDashboard />
             Dashboard
           </ActiveLink>
-          {Object.keys(modules!).map((module, i) => {
-            const Icon = (iconMap[module] || MdDashboard) as IconType;
-            return (
-              <Dropdown
-                key={i}
-                label={module}
-                submenus={modules ? Object.keys(modules[module]) : []}
-                Icon={Icon}
-              />
-              // <ActiveLink key={i} href={`/${slugify(module)}`}>
-              //   <Icon />
-              //   {module}
-              // </ActiveLink>
-            );
-          })}
+          {modules
+            ? Object.keys(modules!).map((module, i) => {
+                const Icon = (iconMap[module] || MdDashboard) as IconType;
+                return (
+                  <Dropdown
+                    key={i}
+                    label={module}
+                    submenus={modules ? Object.keys(modules[module]) : []}
+                    Icon={Icon}
+                  />
+                  // <ActiveLink key={i} href={`/${slugify(module)}`}>
+                  //   <Icon />
+                  //   {module}
+                  // </ActiveLink>
+                );
+              })
+            : null}
         </div>
       </div>
       <LogoutButton />
