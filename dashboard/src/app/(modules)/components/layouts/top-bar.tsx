@@ -24,7 +24,7 @@ const TopBar = () => {
               )
             }
           />
-          <div className="flex-grow-1 d-flex justify-content-center">
+          <div className="flex-grow-1 d-none d-lg-flex justify-content-center">
             <div className="d-flex align-items-center bg-light px-2 border rounded-5 tw-w-[200px]">
               <LuSearch size={18} />
               <input
