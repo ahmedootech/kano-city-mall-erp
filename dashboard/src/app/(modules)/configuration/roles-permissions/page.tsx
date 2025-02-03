@@ -78,7 +78,7 @@ const RolesPermissions = () => {
               <thead>
                 <tr>
                   <th>ROLE NAME</th>
-                  <th>MODULES</th>
+                  {/* <th>MODULES</th> */}
                   {/* <th>PERMISSION</th> */}
                   <th>ACTION</th>
                   <th>STATUS</th>
@@ -88,11 +88,11 @@ const RolesPermissions = () => {
                 {roles.map((role: Role, i) => (
                   <tr key={i}>
                     <td>{role.title}</td>
-                    <td>
+                    {/* <td>
                       {role.modules.length
                         ? role.modules.map((module) => module.name).join(", ")
                         : "Not Set"}
-                    </td>
+                    </td> */}
                     <td>
                       <div className="d-flex gap-2">
                         <button
