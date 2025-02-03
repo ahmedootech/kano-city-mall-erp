@@ -31,6 +31,7 @@ interface UserRegistrationFormProps {
     modules: Record<string, Record<string, Permission[]>>;
   } | null;
   onSuccess?: () => void;
+  onUpdate?: () => void;
 }
 
 const defaultValues = {
@@ -58,6 +59,7 @@ export type Role = {
 const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
   user,
   onSuccess,
+  onUpdate,
 }) => {
   const [roles, setRoles] = useState<Role[]>([]);
   const [permissions, setPermissions] = useState<number[]>(() => {
@@ -270,7 +272,7 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
 
         <button
           className={`btn btn-${user ? "primary" : "danger"} w-100 mt-5`}
-          
+        onClick={onUpdate}
         >
           {user ? "Update User" : "Create User"}
         </button>

@@ -24,12 +24,43 @@ interface User {
   modules: Record<string, any>;
 }
 
+
+// const ConfirmationModal = ({
+//   show,
+//   onHide,
+//   onConfirm,
+// }: {
+//   show: boolean;
+//   onHide: () => void;
+//   onConfirm: () => void;
+// }) => {
+//   return (
+//     <Modal show={show} onHide={onHide} centered>
+//       <Modal.Header closeButton>
+//         <Modal.Title>Confirm Update</Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         Are you sure you want to update this user?
+//       </Modal.Body>
+//       <Modal.Footer>
+//         <button className="btn btn-secondary" onClick={onHide}>
+//           No
+//         </button>
+//         <button className="btn btn-primary" onClick={onConfirm}>
+//           Yes
+//         </button>
+//       </Modal.Footer>
+//     </Modal>
+//   );
+// };
 const User = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+ 
+ 
   const api = getApiClientInstance();
 
   const handleCloseModal = () => {
@@ -40,15 +71,10 @@ const User = () => {
   const handleEdit = (user: User) => {
     setSelectedUser(user);
     setShowModal(true);
+    
+    // setShowConfirmationModal(true);
   };
 
-  // const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.checked) {
-  //     setSelectedUsers(users.map(user => user.uuid));
-  //   } else {
-  //     setSelectedUsers([]);
-  //   }
-  // };
 
   const handleSelectUser = (uuid: string) => {
     setSelectedUsers((prev) => {
@@ -226,7 +252,9 @@ const User = () => {
             } w-100 !tw-text-base`}
           >
             {selectedUser ? "Edit User" : "Create User"}
-            {!selectedUser && (
+            {selectedUser ? (
+              <p className="text-muted small mt-1">Update user information.</p>
+            ) : (
               <p className="text-muted small mt-1">
                 Please fill the form below with appropriate info!
               </p>
@@ -236,6 +264,7 @@ const User = () => {
         <Modal.Body>
           <UserregistrationForm
             user={selectedUser}
+            
             onSuccess={() => {
               handleCloseModal();
               refreshUsers();
