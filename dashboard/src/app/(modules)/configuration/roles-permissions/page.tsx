@@ -11,9 +11,10 @@ import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { Role } from "./types";
 import { FormGroup, Input } from "reactstrap";
 import Loading from "../../components/ui/loading";
+import { toast } from "react-toastify";
 
 const RolesPermissions = () => {
-  const [roles, setRoles] = useState([]);
+  const [roles, setRoles] = useState<any[]>([]);
   const [refetch, setRefetch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showAddRoleModal, setShowAddRoleModal] = useState(false);
@@ -28,11 +29,13 @@ const RolesPermissions = () => {
       try {
         setLoading(true);
         const res = await api.get("/permissions/get-all-roles");
+        console.log(res);
         setRoles(res.data.data);
       } catch (err) {
         console.log(err);
       } finally {
         setLoading(false);
+        setRefetch(false);
       }
     };
     loadData();
@@ -118,15 +121,20 @@ const RolesPermissions = () => {
                           checked={Number(role.status) === 1}
                           onChange={async () => {
                             // const newStatus = e.target.checked ? 1 : 0;
-                            return;
+                            // return;
                             try {
-                              const response = await api.post(
-                                `/permissions/toggle-role-status/${role.id}`,
-                                {
-                                  id: role.id,
-                                }
+                              const response = await api.get(
+                                `/permissions/toggle-role-status/${role.id}`
                               );
+                              const updatedRole = response.data.data;
                               console.log(response);
+                              const updatedRoles: any[] = roles.map((role) =>
+                                role.id === updatedRole.id
+                                  ? { ...role, status: updatedRole.status }
+                                  : role
+                              );
+                              setRoles(updatedRoles);
+                              toast.success(response.data.message);
 
                               // if (response.data.success) {
                               //   const updatedUsers = users.map((user: User) =>
