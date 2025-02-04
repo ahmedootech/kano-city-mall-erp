@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { MdAdd, MdDelete } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
@@ -9,6 +9,7 @@ import PageHeader from "../../components/page-header";
 import Loading from "../../components/ui/loading";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import UserregistrationForm from "./components/user-form";
+import React from "react";
 
 interface User {
   uuid: string;
@@ -103,14 +104,17 @@ const User = () => {
     }
   };
 
-  const refreshUsers = async () => {
-    try {
-      const res = await api.get("/users");
-      setUsers(res.data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
+  const refreshUsers = useCallback(async () => {
+  try {
+    const res = await api.get("/users");
+    setUsers(res.data.data);
+  } catch (err) {
+    console.log(err);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -124,7 +128,7 @@ const User = () => {
       }
     };
     loadData();
-  }, []);
+  }, [refreshUsers]);
 
   return (
     <section>

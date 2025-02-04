@@ -40,16 +40,7 @@ const RolesPermissionsForm: React.FC<{
   const [rolePermissions] = useState<any[]>(dummyRolesPermissions);
 
   const api = getApiClientInstance();
-  console.log("selected", role);
-  useEffect(() => {
-    if (role) {
-      methods.reset({ title: role.title });
 
-      const mods = role.modules.map((mod) => String(mod.id));
-      console.log("mods", mods);
-      setModules(mods);
-    }
-  }, [role]);
   const rolesPermissionsSchema = yup.object().shape({
     title: yup.string().required("Please enter role title"),
   });
@@ -59,6 +50,17 @@ const RolesPermissionsForm: React.FC<{
     resolver: yupResolver(rolesPermissionsSchema),
   });
 
+  console.log("selected", role);
+  useEffect(() => {
+    if (role) {
+      methods.reset({ title: role.title });
+
+      const mods = role.modules.map((mod) => String(mod.id));
+      console.log("mods", mods);
+      setModules(mods);
+    }
+  }, [role, methods]);
+  
   const handlePermissionChange = (event: ChangeEvent<HTMLInputElement>) => {
     const permissionId = event.target.value;
     const isChecked = event.target.checked;

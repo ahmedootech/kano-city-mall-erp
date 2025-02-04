@@ -24,7 +24,7 @@ const ModulesLayout = ({ children }: { children: React.ReactNode }) => {
           console.log("errr", err);
           router.replace("/auth/login");
         });
-  }, [dispatch]);
+  }, [dispatch, router]);
   return (
     <>
       {auth.loading ? (

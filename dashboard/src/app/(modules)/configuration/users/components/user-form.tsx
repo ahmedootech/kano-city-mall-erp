@@ -83,10 +83,10 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
   const dispatch = useDispatch<AppDispatch>();
   const api = getApiClientInstance();
 
-  const findRoleId = (roleTitle: string) => {
-    const role = roles.find((r) => r.title === roleTitle);
-    return role?.id;
-  };
+  // const findRoleId = (roleTitle: string) => {
+  //   const role = roles.find((r) => r.title === roleTitle);
+  //   return role?.id;
+  // };
 
   const methods = useForm<FieldValues | any>({
     defaultValues: user
@@ -103,13 +103,18 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
   });
 
   useEffect(() => {
+    const findRoleId = (roleTitle: string) => {
+    const role = roles.find((r) => r.title === roleTitle);
+    return role?.id;
+  };
+
     if (user && roles.length > 0 && !user.role_id) {
       const roleId = findRoleId(user.role);
       if (roleId) {
         methods.setValue("role_id", roleId.toString());
       }
     }
-  }, [roles, user]);
+  }, [roles, user, methods]);
 
   useEffect(() => {
     const fetchRoles = async () => {
@@ -130,7 +135,7 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
     };
 
     fetchRoles();
-  }, []);
+  }, [api]);
 
   const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
