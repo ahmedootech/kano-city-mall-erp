@@ -25,43 +25,13 @@ interface User {
   modules: Record<string, any>;
 }
 
-
-// const ConfirmationModal = ({
-//   show,
-//   onHide,
-//   onConfirm,
-// }: {
-//   show: boolean;
-//   onHide: () => void;
-//   onConfirm: () => void;
-// }) => {
-//   return (
-//     <Modal show={show} onHide={onHide} centered>
-//       <Modal.Header closeButton>
-//         <Modal.Title>Confirm Update</Modal.Title>
-//       </Modal.Header>
-//       <Modal.Body>
-//         Are you sure you want to update this user?
-//       </Modal.Body>
-//       <Modal.Footer>
-//         <button className="btn btn-secondary" onClick={onHide}>
-//           No
-//         </button>
-//         <button className="btn btn-primary" onClick={onConfirm}>
-//           Yes
-//         </button>
-//       </Modal.Footer>
-//     </Modal>
-//   );
-// };
 const User = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
- 
- 
+
   const api = getApiClientInstance();
 
   const handleCloseModal = () => {
@@ -72,10 +42,7 @@ const User = () => {
   const handleEdit = (user: User) => {
     setSelectedUser(user);
     setShowModal(true);
-    
-    // setShowConfirmationModal(true);
   };
-
 
   const handleSelectUser = (uuid: string) => {
     setSelectedUsers((prev) => {
@@ -104,17 +71,15 @@ const User = () => {
     }
   };
 
-
   const refreshUsers = useCallback(async () => {
-  try {
-    const res = await api.get("/users");
-    setUsers(res.data.data);
-  } catch (err) {
-    console.log(err);
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
+    try {
+      const res = await api.get("/users");
+      setUsers(res.data.data);
+    } catch (err) {
+      console.log(err);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const loadData = async () => {
@@ -171,9 +136,11 @@ const User = () => {
                   <th>LAST NAME</th>
                   <th>EMAIL</th>
                   <th>PHONE</th>
-                  <th>ROLE</th>
-                  <th>ACTION</th>
-                  <th>STATUS</th>
+
+                  <th className="!tw-text-green-500">ROLE</th>
+                  <th className=" !tw-text-red-500">ACTION</th>
+
+                  <th className=" !tw-text-green-500">STATUS</th>
                 </tr>
               </thead>
               <tbody>
@@ -190,7 +157,7 @@ const User = () => {
                     <td>{user.sur_name}</td>
                     <td>{user.email}</td>
                     <td>{user.phone_no}</td>
-                    <td>{user.role}</td>
+                    <td className=" !tw-text-green-500">{user.role}</td>
                     <td>
                       <div className="d-flex gap-2">
                         <button
@@ -206,16 +173,16 @@ const User = () => {
                         <span
                           className={
                             user.status === 1
-                              ? "text-green-600"
-                              : "text-red-600"
+                              ? "!tw-text-green-500"
+                              : "!tw-text-red-500"
                           }
                         ></span>
-                        {/* {user.status === 1 ? "Active" : "Inactive"} */}
+
                         <span
                           className={`text-sm ${
                             user.status === 1
-                              ? "text-green-600"
-                              : "text-red-600"
+                              ? "!tw-text-green-500"
+                              : "!tw-text-red-500"
                           }`}
                         >
                           {user.status === 1 ? "Active" : "Inactive"}
@@ -226,14 +193,11 @@ const User = () => {
                           title="status"
                           checked={user.status === 1}
                           onChange={() => handleStatusChange(user.uuid)}
-                          className={`
-                                toggle-checkbox absolute block w-6 h-6 rounded-full appearance-none cursor-pointer
-                                ${
-                                  user.status === 1
-                                    ? "bg-green-500 transform translate-x-full"
-                                    : "bg-red-500"
-                                }
-                              `}
+                          className={`${
+                            user.status === 1
+                              ? "!tw-bg-green-500"
+                              : "!tw-bg-red-500"
+                          }`}
                         />
                       </FormGroup>
                     </td>
@@ -268,7 +232,6 @@ const User = () => {
         <Modal.Body>
           <UserregistrationForm
             user={selectedUser}
-            
             onSuccess={() => {
               handleCloseModal();
               refreshUsers();
