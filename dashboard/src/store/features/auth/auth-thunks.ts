@@ -31,13 +31,11 @@ export const initializeUser = createAsyncThunk<UserType, void>(
   "auth/initialize-user",
   async (_, { rejectWithValue }): Promise<UserType | string | any> => {
     const token = getAuthToken();
-    console.log("token", token);
     if (token) {
       try {
         const response = await getApiClientInstance().get(
           "/users/get-user-by-token"
         );
-        console.log(response);
         const { user } = response.data.data;
 
         return user as UserType;

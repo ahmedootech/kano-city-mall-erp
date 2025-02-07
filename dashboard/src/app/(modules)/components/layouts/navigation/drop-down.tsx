@@ -24,13 +24,15 @@ const Dropdown: React.FC<DropdownType> = ({
 
   // Check if the current path is the same as the link's href
   const isActive =
-    label === "/" ? pathname === label : pathname.startsWith(label as string);
+    label === "/"
+      ? pathname === label
+      : pathname.startsWith(`/${label.toLocaleLowerCase()}`);
   return (
-    <div className="p-2 cursor-pointer">
+    <div className="cursor-pointer">
       <Link
         href={"#"}
-        className={`d-flex align-items-center gap-1 nav-link ${
-          isActive ? "tw-bg-gray-100 fw-semibold " : "tw-text-gray-500"
+        className={`d-flex align-items-center px-1 px-lg-3 py-2 gap-1 nav-link ${
+          isActive ? "bg-warning fw-semibold " : "tw-text-gray-500"
         }`}
         onClick={() => setShowSubmenu(!showSubmenu)}
       >
@@ -41,7 +43,7 @@ const Dropdown: React.FC<DropdownType> = ({
         )}
       </Link>
       {submenus.length && showSubmenu && (
-        <div className="ms-4 mt-2 tw-text-sm tw-bg-gray-700">
+        <div className="ms-3 mt-2 me-2 tw-text-sm tw-bg-gray-700">
           {submenus.map((submenu, i) => (
             <Link
               className="d-block tw-text-inherit tw-no-underline p-2 text-wrap tw-border-yellow-400 hover:tw-border-b-2"

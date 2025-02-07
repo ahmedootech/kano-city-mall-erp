@@ -25,7 +25,7 @@ const Menus = () => {
         <Logo width={104} height={38} />
       </div>
 
-      <div className="tw-mt-[20px] px-1 px-lg-3 flex-grow-1 d-flex flex-column">
+      <div className="tw-mt-[20px] flex-grow-1 d-flex flex-column">
         <NavMenus />
       </div>
     </div>

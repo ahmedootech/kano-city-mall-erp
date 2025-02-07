@@ -29,7 +29,6 @@ const RolesPermissions = () => {
       try {
         setLoading(true);
         const res = await api.get("/permissions/get-all-roles");
-        console.log(res);
         setRoles(res.data.data);
       } catch (err) {
         console.log(err);
