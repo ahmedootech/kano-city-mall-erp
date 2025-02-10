@@ -1,3 +1,5 @@
+
+
 import React, { ChangeEvent, useState, useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store";
 import { signInActions } from "@/store/features/signup";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
+import ConfirmationModal from "./confirmation-model";
 
 interface Permission {
   id: number;
@@ -57,17 +60,13 @@ export type Role = {
 const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
   user,
   onSuccess,
-  onUpdate,
 }) => {
   const [roles, setRoles] = useState<Role[]>([]);
   const [permissions, setPermissions] = useState<number[]>(() => {
     if (user?.modules) {
       const userPermissions = new Set<number>();
-
-      // Iterate through all modules and their permissions
       Object.values(user.modules).forEach((moduleData) => {
         Object.values(moduleData).forEach((subModulePermissions) => {
-          // Check if subModulePermissions is an array before calling forEach
           if (Array.isArray(subModulePermissions)) {
             subModulePermissions.forEach((permission) => {
               userPermissions.add(permission.id);
@@ -75,19 +74,14 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
           }
         });
       });
-
       return Array.from(userPermissions);
     }
     return [];
   });
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const api = getApiClientInstance();
-
-  // const findRoleId = (roleTitle: string) => {
-  //   const role = roles.find((r) => r.title === roleTitle);
-  //   return role?.id;
-  // };
 
   const methods = useForm<FieldValues | any>({
     defaultValues: user
@@ -134,9 +128,9 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
         toast.error("Error fetching roles", error);
       }
     };
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchRoles();
-  }, [api]);
+  }, []);
 
   const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -202,6 +196,19 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
         });
       }
     }
+  };
+
+  const handleUpdateClick = () => {
+    if (user) {
+      setShowConfirmationModal(true);
+    } else {
+      methods.handleSubmit(handleSubmit)(); 
+    }
+  };
+
+  const handleConfirmUpdate = async () => {
+    setShowConfirmationModal(false); 
+    await methods.handleSubmit(handleSubmit)(); 
   };
 
   return (
@@ -278,11 +285,20 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
 
         <button
           className={`btn btn-${user ? "primary" : "danger"} w-100 mt-5`}
-          onClick={onUpdate}
+          type="button" // Change to type="button" to prevent form submission
+          onClick={handleUpdateClick} // Use handleUpdateClick for conditional logic
         >
           {user ? "Update User" : "Create User"}
         </button>
       </form>
+
+      {user && ( // Only show ConfirmationModal during edit operations
+        <ConfirmationModal
+          show={showConfirmationModal}
+          onHide={() => setShowConfirmationModal(false)}
+          onConfirm={handleConfirmUpdate}
+        />
+      )}
     </div>
   );
 };
