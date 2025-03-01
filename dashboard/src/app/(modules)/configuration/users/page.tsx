@@ -31,12 +31,23 @@ const User = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
-
+  const [viewUser, setViewUser] = useState<User | null>(null);
+  const [showViewModal, setShowViewModal] = useState(false);
   const api = getApiClientInstance();
 
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedUser(null);
+  };
+
+   const handleView = (user: User) => {
+    setViewUser(user);
+    setShowViewModal(true);
+  };
+
+  const handleCloseViewModal = () => {
+    setShowViewModal(false);
+    setViewUser(null);
   };
 
   const handleEdit = (user: User) => {
@@ -141,6 +152,7 @@ const User = () => {
                   <th className=" !tw-text-red-500">ACTION</th>
 
                   <th className=" !tw-text-green-500">STATUS</th>
+                  <th className=" !tw-text-green-500">VIEW</th>
                 </tr>
               </thead>
               <tbody>
@@ -186,7 +198,7 @@ const User = () => {
                           }`}
                         >
                           {user.status === 1 ? "Active" : "Inactive"}
-                        </span>
+                        </span> 
                         <Input
                           type="switch"
                           role="switch"
@@ -200,6 +212,14 @@ const User = () => {
                           }`}
                         />
                       </FormGroup>
+                    </td>
+                    <td>
+                      <div
+                        className="!tw-text-green-500 cursor-pointer"
+                        onClick={() => handleView(user)}
+                      >
+                        View
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -237,6 +257,55 @@ const User = () => {
               refreshUsers();
             }}
           />
+        </Modal.Body>
+      </Modal>
+      {/* View User Information Modal */}
+      <Modal show={showViewModal} onHide={handleCloseViewModal}>
+        <Modal.Header
+          closeButton
+          className="align-items-center border-bottom-0"
+        >
+          <Modal.Title className="text-center text-primary w-100 !tw-text-base">
+            User Information
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {viewUser && (
+            <div className="px-3">
+              <div className="mb-3">
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">First Name :</div>
+                  <div>{viewUser.first_name}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Last Name :</div>
+                  <div>{viewUser.sur_name}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Email :</div>
+                  <div>{viewUser.email}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Phone :</div>
+                  <div>{viewUser.phone_no}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Date of Birth :</div>
+                  <div>{viewUser.date_of_birth}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Role :</div>
+                  <div>{viewUser.role}</div>
+                </div>
+                <div className="d-flex mb-2">
+                  <div className="w-50 font-weight-bold">Status :</div>
+                  <div className={viewUser.status === 1 ? "text-success" : "text-danger"}>
+                    {viewUser.status === 1 ? "Active" : "Inactive"}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </Modal.Body>
       </Modal>
     </section>
