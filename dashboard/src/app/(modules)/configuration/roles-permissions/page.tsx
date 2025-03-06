@@ -19,6 +19,7 @@ const RolesPermissions = () => {
   const [loading, setLoading] = useState(true);
   const [showAddRoleModal, setShowAddRoleModal] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
+ 
 
   const api = getApiClientInstance();
   const handleCloseRoleModal = () => {
@@ -164,7 +165,7 @@ const RolesPermissions = () => {
         </section>
       )}
 
-      <Modal show={showAddRoleModal} onHide={handleCloseRoleModal}>
+      <Modal show={showAddRoleModal} onHide={handleCloseRoleModal} centered>
         <Modal.Header
           closeButton
           className="align-items-center border-bottom-0"
@@ -180,7 +181,7 @@ const RolesPermissions = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <RolesPermissionsForm role={selectedRole} setRefetch={setRefetch} />
+          <RolesPermissionsForm role={selectedRole} setRefetch={setRefetch} setShowParentModal={setShowAddRoleModal} />
         </Modal.Body>
       </Modal>
     </section>

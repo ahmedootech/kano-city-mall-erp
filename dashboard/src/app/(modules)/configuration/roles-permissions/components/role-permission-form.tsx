@@ -14,6 +14,9 @@ import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { toast } from "react-toastify";
 import { Role } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
+import { Modal } from "react-bootstrap";
+import Loading from "@/app/(modules)/components/ui/loading";
+import { CircularProgress } from "@mui/material";
 const defaultValues = {
   title: "",
 };
@@ -38,6 +41,14 @@ const RolesPermissionsForm: React.FC<{
 }> = ({ role = null, setRefetch }) => {
   const [modules, setModules] = useState<any[]>([]);
   const [rolePermissions] = useState<any[]>(dummyRolesPermissions);
+  const [successMessage, setSuccessMessage] = useState<string | undefined>(
+    undefined
+  );
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
+  const [showConfirm, setShowConfrim] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const api = getApiClientInstance();
 
@@ -50,7 +61,6 @@ const RolesPermissionsForm: React.FC<{
     resolver: yupResolver(rolesPermissionsSchema),
   });
 
-  console.log("selected", role);
   useEffect(() => {
     if (role) {
       methods.reset({ title: role.title });
@@ -60,7 +70,7 @@ const RolesPermissionsForm: React.FC<{
       setModules(mods);
     }
   }, [role, methods]);
-  
+
   const handlePermissionChange = (event: ChangeEvent<HTMLInputElement>) => {
     const permissionId = event.target.value;
     const isChecked = event.target.checked;
@@ -88,6 +98,10 @@ const RolesPermissionsForm: React.FC<{
       });
   };
   const handleSubmit = async (data: any) => {
+    setShowConfrim(false)
+    setLoading(true);
+    setSuccessMessage(undefined);
+    setErrorMessage(undefined);
     try {
       const payload = {
         title: data.title,
@@ -96,16 +110,15 @@ const RolesPermissionsForm: React.FC<{
 
       if (role) {
         await api.post(`/permissions/edit-role/${role.id}`, payload);
-        toast.success("Role updated successfully");
+        setSuccessMessage("Role updated successfully");
       } else {
         await api.post("/permissions/create-new-role", payload);
-        toast.success("Role created successfully");
+        setSuccessMessage("Role created successfully");
         methods.reset(defaultValues);
         setModules([]);
       }
       setRefetch(true);
     } catch (err: any) {
-      console.log(err);
       const errors = err.response.data.errors;
       if (typeof errors === "object") {
         handleYupErrors({
@@ -114,55 +127,99 @@ const RolesPermissionsForm: React.FC<{
           yupSetError: methods.setError,
         });
       } else {
-        toast.error(err.data.message);
+        setErrorMessage(err.data.message);
       }
+    } finally {
+      setLoading(false);
     }
-    console.log(data);
-    console.log(modules);
   };
   return (
-    <div className="px-3 pb-5 mb-5">
-      <form action="" onSubmit={methods.handleSubmit(handleSubmit)}>
-        <CustomInput
-          label="Role"
-          name="title"
-          control={methods.control}
-          type="text"
-          placeholder="Role"
-        />
-        <div className="d-flex flex-column gap-3 mt-2">
-          <div className="">
-            <h5 className="tw-text-base">Modules & Permissions </h5>
-            <label className="fs-6">
-              Select all{" "}
-              <Input type="checkbox" onChange={handleSelectAllChange} />
-            </label>
-          </div>
+    <>
+      <div className="px-3">
+        <form action="" onSubmit={methods.handleSubmit(handleSubmit)}>
+          {showConfirm ? (
+            <div className="pt-1 pb-3 text-center">
+              <p className="">Are you Sure You Want to Update This Role?</p>
+              <div className="d-flex justify-content-center gap-3">
+                <button
+                  className="btn btn-primary px-5"
+                  type="submit"
+                  
+                >
+                  Yes
+                </button>
+                <button
+                  className="btn btn-secondary px-5"
+                  type="button"
+                  onClick={() => {
+                    setShowConfrim(false);
+                  }}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="pb-5 mb-5">
+              <CustomInput
+                label="Role"
+                name="title"
+                control={methods.control}
+                type="text"
+                placeholder="Role"
+              />
+              <div className="d-flex flex-column gap-3 mt-2">
+                <div className="">
+                  <h5 className="tw-text-base">Modules & Permissions </h5>
+                  <label className="fs-6">
+                    Select all{" "}
+                    <Input type="checkbox" onChange={handleSelectAllChange} />
+                  </label>
+                </div>
 
-          {rolePermissions.map((module, index) => {
-            return (
-              <label key={index} className="me-2 gap-1 tw-text-sm">
-                <Input
-                  type="checkbox"
-                  name="modules"
-                  value={module.id}
-                  checked={modules.includes(String(module.id))}
-                  onChange={handlePermissionChange}
-                />{" "}
-                <span className={`tw-bg-gray-300 py-0 px-1 tw-rounded-sm me-1`}>
-                  {module.name[0]}
-                </span>
-                {module.name}
-              </label>
-            );
-          })}
-        </div>
+                {rolePermissions.map((module, index) => {
+                  return (
+                    <label key={index} className="me-2 gap-1 tw-text-sm">
+                      <Input
+                        type="checkbox"
+                        name="modules"
+                        value={module.id}
+                        checked={modules.includes(String(module.id))}
+                        onChange={handlePermissionChange}
+                      />{" "}
+                      <span
+                        className={`tw-bg-gray-300 py-0 px-1 tw-rounded-sm me-1`}
+                      >
+                        {module.name[0]}
+                      </span>
+                      {module.name}
+                    </label>
+                  );
+                })}
+              </div>
 
-        <button className={`btn btn-${role ? "primary" : "danger"} w-100 mt-5`}>
-          {role ? "Update" : "Create Role"}
-        </button>
-      </form>
-    </div>
+              <button
+                type="button"
+                className={`btn btn-${
+                  role ? "primary" : "danger"
+                } w-100 mt-5 mb-4 `}
+                onClick={() => {
+                  setShowConfrim(true);
+                }}
+              >
+                {loading ? <CircularProgress className="text-white" size={14}/> : role ? "Update" : "Create Role"}
+              </button>
+              {successMessage && (
+                <p className="text-success text-center">{successMessage}</p>
+              )}
+              {errorMessage && (
+                <p className="text-danger text-center">{errorMessage}</p>
+              )}
+            </div>
+          )}
+        </form>
+      </div>
+    </>
   );
 };
 
