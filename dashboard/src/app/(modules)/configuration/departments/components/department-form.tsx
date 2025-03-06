@@ -2,20 +2,17 @@ import * as yup from "yup";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, {
-  ChangeEvent,
   Dispatch,
   SetStateAction,
   useEffect,
   useState,
 } from "react";
-import { Input } from "reactstrap";
 import CustomInput from "@/app/components/form-controls/input";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { Department } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
 
 import { CircularProgress } from "@mui/material";
-import Select from "@/app/components/form-controls/select";
 const defaultValues = {
   name: "",
   max_employee_no: 0,
