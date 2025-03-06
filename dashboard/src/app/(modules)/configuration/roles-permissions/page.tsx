@@ -181,7 +181,7 @@ const RolesPermissions = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <RolesPermissionsForm role={selectedRole} setRefetch={setRefetch} setShowParentModal={setShowAddRoleModal} />
+          <RolesPermissionsForm role={selectedRole} setRefetch={setRefetch} />
         </Modal.Body>
       </Modal>
     </section>
