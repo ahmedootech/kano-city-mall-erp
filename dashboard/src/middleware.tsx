@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
     path.startsWith("/auth") &&
     request.cookies.has(configuration.authToken)
   ) {
-    return NextResponse.redirect(new URL("/overview", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   // Always return NextResponse.next() if no redirect is needed

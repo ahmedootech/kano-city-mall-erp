@@ -117,6 +117,11 @@ const RolesPermissionsForm: React.FC<{
       }
       setRefetch(true);
     } catch (err: any) {
+      console.log(err)
+      if(err.message){
+        setErrorMessage(err.message)
+        return
+      }
       const errors = err.response.data.errors;
       if (typeof errors === "object") {
         handleYupErrors({
@@ -197,11 +202,12 @@ const RolesPermissionsForm: React.FC<{
               </div>
 
               <button
-                type="button"
+                type={role ? "button": 'submit'}
                 className={`btn btn-${
                   role ? "primary" : "danger"
                 } w-100 mt-5 mb-4 `}
                 onClick={() => {
+                  if(!role) return true
                   setShowConfrim(true);
                 }}
               >
