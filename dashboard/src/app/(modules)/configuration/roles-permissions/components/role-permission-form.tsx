@@ -14,7 +14,6 @@ import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { Role } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
 
-import { CircularProgress } from "@mui/material";
 import SubmitButton from "@/app/components/form-controls/submit-button";
 const defaultValues = {
   title: "",

@@ -7,7 +7,6 @@ import {
 } from "react";
 import { Department } from "../types";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
-import { CircularProgress } from "@mui/material";
 import SubmitButton from "@/app/components/form-controls/submit-button";
 
 const AssignHODForm: React.FC<{
