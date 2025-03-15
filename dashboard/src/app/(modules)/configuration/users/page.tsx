@@ -182,34 +182,30 @@ const User = () => {
                     </td>
                     <td>
                       <FormGroup switch>
+                       
                         <span
                           className={
-                            user.status === 1
-                              ? "!tw-text-green-500"
-                              : "!tw-text-red-500"
+                            user.status == 1 ? "text-success" : "text-danger"
                           }
-                        ></span>
-
-                        <span
-                          className={`text-sm ${
-                            user.status === 1
-                              ? "!tw-text-green-500"
-                              : "!tw-text-red-500"
-                          }`}
                         >
-                          {user.status === 1 ? "Active" : "Inactive"}
-                        </span> 
+                          {user.status == 1 ? "Active" : "Inactive"}
+                        </span>
                         <Input
                           type="switch"
                           role="switch"
                           title="status"
                           checked={user.status === 1}
                           onChange={() => handleStatusChange(user.uuid)}
-                          className={`${
-                            user.status === 1
-                              ? "!tw-bg-green-500"
-                              : "!tw-bg-red-500"
-                          }`}
+                          // className={`${
+                          //   user.status === 1
+                          //     ? "!tw-bg-green-500"
+                          //     : "!tw-bg-red-500"
+                          // }`}
+                          className={
+                            user.status == 1
+                              ? "custom-switch-active"
+                              : "custom-switch-inactive"
+                          }
                         />
                       </FormGroup>
                     </td>
