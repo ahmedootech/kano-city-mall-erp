@@ -61,7 +61,7 @@ const AssignHODForm: React.FC<{
               placeholder="Search by name"
             />
           </div>
-          <h4 className="fs-6 my-3">All Department Employees</h4>
+          <h4 className="fs-6 my-3 text-primary">All Department Employees</h4>
           <div className="">
             {employees.map((employee, i) => (
               <label className="form-check-label d-flex gap-2" key={i}>

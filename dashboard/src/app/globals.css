@@ -45,8 +45,8 @@ a {
 }
 /* Add this in your CSS file */
 .custom-switch-active{
-  background-color: green !important;  /* Change to green */
-  border-color: green !important;      /* Optional: Add border color */
+  background-color: #1FAF38 !important;  /* Change to #1FAF38 */
+  border-color: #1FAF38 !important;      /* Optional: Add border color */
 }
 .custom-switch-inactive{
   background-color: red !important;
