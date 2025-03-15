@@ -116,7 +116,7 @@ const User = () => {
           <input type="search" className="form-control tw-text-sm" />
           <button className="btn btn-outline-danger d-flex align-items-center gap-2">
             <MdDelete />
-            Delete
+            Archieve
           </button>
           <button
             className="btn btn-warning d-flex align-items-center gap-2 text-nowrap"

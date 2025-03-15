@@ -285,14 +285,14 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
 
         <button
           className={`btn btn-${user ? "primary" : "danger"} w-100 mt-5`}
-          type="button" // Change to type="button" to prevent form submission
-          onClick={handleUpdateClick} // Use handleUpdateClick for conditional logic
+          type="button" 
+          onClick={handleUpdateClick} 
         >
           {user ? "Update User" : "Create User"}
         </button>
       </form>
 
-      {user && ( // Only show ConfirmationModal during edit operations
+      {user && ( 
         <ConfirmationModal
           show={showConfirmationModal}
           onHide={() => setShowConfirmationModal(false)}

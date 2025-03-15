@@ -1,5 +1,8 @@
+
+import React from "react";
 import { Controller, Control } from "react-hook-form";
-interface InputProps {
+
+interface CustomInputProps {
   label?: string;
   placeholder?: string;
   type: string;
@@ -9,11 +12,13 @@ interface InputProps {
   disabled?: boolean;
   value?: string;
   list?: string;
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  rows?: number;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }
-const Input: React.FC<InputProps> = ({
+
+const CustomInput: React.FC<CustomInputProps> = ({
   label,
   placeholder,
   type,
@@ -22,6 +27,7 @@ const Input: React.FC<InputProps> = ({
   control,
   value,
   list,
+  rows = 3,
   onChange,
   onFocus,
   onBlur,
@@ -42,31 +48,60 @@ const Input: React.FC<InputProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>
-            <input
-              type={type}
-              className="form-control form-control-sm py-2 px-2 shadow-none"
-              placeholder={placeholder ? placeholder : label}
-              list={list}
-              {...field}
-              value={value ? value : field.value}
-              disabled={disabled}
-              onChange={(event) => {
-                field.onChange(event); // React-hook-form's change handling
-                if (onChange) {
-                  onChange(event); // Call the provided onChange if available
-                }
-              }}
-              onFocus={(event) => {
-                if (onFocus) {
-                  onFocus(event); // Call the provided onChange if available
-                }
-              }}
-              onBlur={(event: any) => {
-                if (onBlur) {
-                  onBlur(event); // Call the provided onChange if available
-                }
-              }}
-            />
+            {type === "textarea" ? (
+              <textarea
+                className="form-control form-control-sm py-2 px-2 shadow-none"
+                placeholder={placeholder ? placeholder : label}
+                rows={rows}
+                {...field}
+                value={value ? value : field.value}
+                disabled={disabled}
+                onChange={(event) => {
+                  field.onChange(event);
+                  if (onChange) {
+                    onChange(event as any);
+                  }
+                }}
+                onFocus={(event) => {
+                  if (onFocus) {
+                    onFocus(event as any);
+                  }
+                }}
+                onBlur={(event) => {
+                  field.onBlur();
+                  if (onBlur) {
+                    onBlur(event as any);
+                  }
+                }}
+              />
+            ) : (
+              <input
+                type={type}
+                className="form-control form-control-sm py-2 px-2 shadow-none"
+                placeholder={placeholder ? placeholder : label}
+                list={list}
+                {...field}
+                value={value ? value : field.value}
+                disabled={disabled}
+                onChange={(event) => {
+                  field.onChange(event);
+                  if (onChange) {
+                    onChange(event);
+                  }
+                }}
+                onFocus={(event) => {
+                  if (onFocus) {
+                    onFocus(event);
+                  }
+                }}
+                onBlur={(event) => {
+                  field.onBlur();
+                  if (onBlur) {
+                    onBlur(event);
+                  }
+                }}
+              />
+            )}
             {error ? (
               <p className="form-text text-danger p-0 m-0">{error.message}</p>
             ) : null}
@@ -76,4 +111,5 @@ const Input: React.FC<InputProps> = ({
     </div>
   );
 };
-export default Input;
+
+export default CustomInput;
