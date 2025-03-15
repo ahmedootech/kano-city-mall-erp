@@ -15,8 +15,8 @@ const defaultValues = {
 const JobForm: React.FC<{
   job?: Job | null;
   setRefetch: Dispatch<SetStateAction<boolean>>;
-  closeModal: () => void;
-}> = ({ job = null, setRefetch, closeModal }) => {
+  
+}> = ({ job = null, setRefetch }) => {
   const [successMessage, setSuccessMessage] = useState<string | undefined>(undefined);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
   const [showConfirm, setShowConfrim] = useState(false);
@@ -62,8 +62,9 @@ const JobForm: React.FC<{
         methods.reset(defaultValues);
       }
      
-      closeModal();
+      
       setRefetch(true);
+   
       
     } catch (err: any) {
       console.log(err);

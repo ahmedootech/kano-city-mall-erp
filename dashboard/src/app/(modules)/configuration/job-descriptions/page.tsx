@@ -146,7 +146,7 @@ const Jobs = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <JobForm job={selectedJob} setRefetch={setRefetch}  closeModal={handleCloseJobModal}  />
+          <JobForm job={selectedJob} setRefetch={setRefetch}   />
         </Modal.Body>
       </Modal>
     </section>
