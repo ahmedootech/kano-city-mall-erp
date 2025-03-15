@@ -15,6 +15,7 @@ import { Role } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
 
 import { CircularProgress } from "@mui/material";
+import SubmitButton from "@/app/components/form-controls/submit-button";
 const defaultValues = {
   title: "",
 };
@@ -96,7 +97,7 @@ const RolesPermissionsForm: React.FC<{
       });
   };
   const handleSubmit = async (data: any) => {
-    setShowConfrim(false)
+    setShowConfrim(false);
     setLoading(true);
     setSuccessMessage(undefined);
     setErrorMessage(undefined);
@@ -117,10 +118,10 @@ const RolesPermissionsForm: React.FC<{
       }
       setRefetch(true);
     } catch (err: any) {
-      console.log(err)
-      if(err.message){
-        setErrorMessage(err.message)
-        return
+      console.log(err);
+      if (err.message) {
+        setErrorMessage(err.message);
+        return;
       }
       const errors = err.response.data.errors;
       if (typeof errors === "object") {
@@ -144,11 +145,7 @@ const RolesPermissionsForm: React.FC<{
             <div className="pt-1 pb-3 text-center">
               <p className="">Are you Sure You Want to Update This Role?</p>
               <div className="d-flex justify-content-center gap-3">
-                <button
-                  className="btn btn-primary px-5"
-                  type="submit"
-                  
-                >
+                <button className="btn btn-primary px-5" type="submit">
                   Yes
                 </button>
                 <button
@@ -201,18 +198,37 @@ const RolesPermissionsForm: React.FC<{
                 })}
               </div>
 
-              <button
-                type={role ? "button": 'submit'}
+              <SubmitButton
+                loading={loading}
+                type={role ? "button" : "submit"}
+                title={role ? "Update" : "Create Role"}
+                className={`btn-${
+                  role ? "primary" : "danger"
+                } w-100 mt-5 mb-4 `}
+                onClick={() => {
+                  if (!role) return true;
+                  setShowConfrim(true);
+                }}
+              />
+
+              {/* <button
+                type={role ? "button" : "submit"}
                 className={`btn btn-${
                   role ? "primary" : "danger"
                 } w-100 mt-5 mb-4 `}
                 onClick={() => {
-                  if(!role) return true
+                  if (!role) return true;
                   setShowConfrim(true);
                 }}
               >
-                {loading ? <CircularProgress className="text-white" size={14}/> : role ? "Update" : "Create Role"}
-              </button>
+                {loading ? (
+                  <CircularProgress className="text-white" size={14} />
+                ) : role ? (
+                  "Update"
+                ) : (
+                  "Create Role"
+                )}
+              </button> */}
               {successMessage && (
                 <p className="text-success text-center">{successMessage}</p>
               )}

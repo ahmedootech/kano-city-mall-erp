@@ -19,7 +19,6 @@ const RolesPermissions = () => {
   const [loading, setLoading] = useState(true);
   const [showAddRoleModal, setShowAddRoleModal] = useState(false);
   const [selectedRole, setSelectedRole] = useState<Role | null>(null);
- 
 
   const api = getApiClientInstance();
   const handleCloseRoleModal = () => {
@@ -82,7 +81,7 @@ const RolesPermissions = () => {
                   {/* <th>MODULES</th> */}
                   {/* <th>PERMISSION</th> */}
                   <th>ACTION</th>
-                  <th>STATUS</th>
+                  <th className="text-success">STATUS</th>
                 </tr>
               </thead>
               <tbody>
@@ -114,12 +113,23 @@ const RolesPermissions = () => {
 
                     <td>
                       <FormGroup switch>
-                        {role.status == 1 ? "Active" : "Inactive"}
+                        <span
+                          className={
+                            role.status == 1 ? "text-success" : "text-danger"
+                          }
+                        >
+                          {role.status == 1 ? "Active" : "Deactivated"}
+                        </span>
                         <Input
                           type="switch"
                           role="switch"
                           title="status"
                           checked={Number(role.status) === 1}
+                          className={
+                            role.status == 1
+                              ? "custom-switch-active"
+                              : "custom-switch-inactive"
+                          }
                           onChange={async () => {
                             // const newStatus = e.target.checked ? 1 : 0;
                             // return;

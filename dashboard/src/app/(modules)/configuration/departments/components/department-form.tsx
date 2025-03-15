@@ -1,30 +1,23 @@
 import * as yup from "yup";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import CustomInput from "@/app/components/form-controls/input";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { Department } from "../types";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
-
-import { CircularProgress } from "@mui/material";
+import SubmitButton from "@/app/components/form-controls/submit-button";
 const defaultValues = {
   name: "",
   max_employee_no: 0,
-  description: '',
-  hod: ''
+  description: "",
+  hod: "",
 };
 
 const DepartmentForm: React.FC<{
   department?: Department | null;
   setRefetch: Dispatch<SetStateAction<boolean>>;
 }> = ({ department = null, setRefetch }) => {
- 
   const [successMessage, setSuccessMessage] = useState<string | undefined>(
     undefined
   );
@@ -38,9 +31,12 @@ const DepartmentForm: React.FC<{
 
   const departmentSchema = yup.object().shape({
     name: yup.string().required("Please enter department name"),
-    max_employee_no:yup.number().typeError('Only numbers').required('Please enter number of employees'),
-    description: yup.string().required('Enter description'),
-    hod:yup.string()
+    max_employee_no: yup
+      .number()
+      .typeError("Only numbers")
+      .required("Please enter number of employees"),
+    description: yup.string().required("Enter description"),
+    hod: yup.string(),
   });
 
   const methods = useForm<FieldValues | any>({
@@ -50,7 +46,12 @@ const DepartmentForm: React.FC<{
 
   useEffect(() => {
     if (department) {
-      methods.reset({ name: department.name, max_employee_no: department.max_employee_no, description: department.description, hod: department.hod });
+      methods.reset({
+        name: department.name,
+        max_employee_no: department.max_employee_no,
+        description: department.description,
+        hod: department.hod,
+      });
     }
   }, [department, methods]);
 
@@ -81,7 +82,7 @@ const DepartmentForm: React.FC<{
   //     });
   // };
   const handleSubmit = async (data: any) => {
-    setShowConfrim(false)
+    setShowConfrim(false);
     setLoading(true);
     setSuccessMessage(undefined);
     setErrorMessage(undefined);
@@ -98,14 +99,13 @@ const DepartmentForm: React.FC<{
         await api.post("/departments", data);
         setSuccessMessage("Department created successfully");
         methods.reset(defaultValues);
-     
       }
       setRefetch(true);
     } catch (err: any) {
-      console.log(err)
-      if(err.message){
-        setErrorMessage(err.message)
-        return
+      console.log(err);
+      if (err.message) {
+        setErrorMessage(err.message);
+        return;
       }
       const errors = err.response.data.errors;
       if (typeof errors === "object") {
@@ -129,11 +129,7 @@ const DepartmentForm: React.FC<{
             <div className="pt-1 pb-3 text-center">
               <p className="">Are you Sure You Want to Update Department?</p>
               <div className="d-flex justify-content-center gap-3">
-                <button
-                  className="btn btn-primary px-5"
-                  type="submit"
-                  
-                >
+                <button className="btn btn-primary px-5" type="submit">
                   Yes
                 </button>
                 <button
@@ -170,19 +166,34 @@ const DepartmentForm: React.FC<{
                 type="text"
                 placeholder="Description"
               />
-            
-              <button
-                type={department ? "button": 'submit'}
-                className={`btn btn-${
+
+              <SubmitButton
+                type={department ? "button" : "submit"}
+                title={department ? "Update Department" : "Create Department"}
+                loading={loading}
+                className={`btn-${
                   department ? "primary" : "danger"
-                } w-100 mt-5 mb-4 `}
+                } w-100  my-3`}
                 onClick={() => {
-                  if(!department) return true
+                  if (!department) return true;
                   setShowConfrim(true);
                 }}
+              />
+
+              {/* <button
+                type={department ? "button" : "submit"}
+                className={`btn btn-${
+                  department ? "primary" : "danger"
+                } w-100  `}
               >
-                {loading ? <CircularProgress className="text-white" size={14}/> : department ? "Update Department" : "Create Department"}
-              </button>
+                {loading ? (
+                  <CircularProgress className="text-white" size={14} />
+                ) : department ? (
+                  "Update Department"
+                ) : (
+                  "Create Department"
+                )}
+              </button> */}
               {successMessage && (
                 <p className="text-success text-center">{successMessage}</p>
               )}

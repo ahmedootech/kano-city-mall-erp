@@ -47,7 +47,7 @@ const SubmitButton: React.FC<{
     >
       {loading ? (
         <>
-          <CircularProgress size={18} className="text-white" /> {title}
+          <CircularProgress size={18} className="text-white" /> Loading...
         </>
       ) : (
         buttonLabel

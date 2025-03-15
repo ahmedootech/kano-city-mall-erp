@@ -13,24 +13,30 @@ import Loading from "../../components/ui/loading";
 import { toast } from "react-toastify";
 import { Department } from "./types";
 import DepartmentForm from "./components/department-form";
+import AssignHODForm from "./components/assign-hod-form";
 
 const Departments = () => {
   const [departments, setDepartments] = useState<any[]>([]);
   const [refetch, setRefetch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showAddDepartmentModal, setShowAddDepartmentModal] = useState(false);
+  const [showAssignHODModal, setShowAssignHODModal] = useState(false);
   const [selectedDepartment, setSelectedDepartemt] =
     useState<Department | null>(null);
 
   const api = getApiClientInstance();
-  const handleCloseRoleModal = () => {
+  const handleCloseAddDepartmentModal = () => {
     setShowAddDepartmentModal(false);
+  };
+  const handleCloseAssignHODModal = () => {
+    setShowAssignHODModal(false);
   };
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
         const res = await api.get("/departments");
+        console.log(res);
         setDepartments(res.data.data.data);
       } catch (err) {
         console.log(err);
@@ -83,8 +89,9 @@ const Departments = () => {
                   <th>NO OF STAFF</th>
                   <th>DESCRIPTION</th>
                   <th>HEAD OF DEPARTMENT</th>
-                  <th>ACTION</th>
-                  <th>STATUS</th>
+                  <th className="text-danger">ACTION</th>
+                  <th className="text-info">ROLE</th>
+                  <th className="text-success">STATUS</th>
                 </tr>
               </thead>
               <tbody>
@@ -98,7 +105,7 @@ const Departments = () => {
                     <td>
                       <div className="d-flex gap-2">
                         <button
-                          className="btn btn-primary d-flex align-items-center gap-2"
+                          className="btn btn-primary d-flex align-items-center gap-2 py-0"
                           onClick={() => {
                             setSelectedDepartemt(department);
                             setShowAddDepartmentModal(true);
@@ -112,15 +119,40 @@ const Departments = () => {
                         </button> */}
                       </div>
                     </td>
-
                     <td>
-                      <div className="d-flex align-items-center">
+                      {
+                        <button
+                          className="btn btn-warning py-0"
+                          onClick={() => {
+                            setSelectedDepartemt(department);
+                            setShowAssignHODModal(true);
+                          }}
+                        >
+                          Assign
+                        </button>
+                      }
+                    </td>
+                    <td>
+                      <div className="d-flex align-items-center gap-2">
+                        <span
+                          className={
+                            department.status == 1
+                              ? "text-success"
+                              : "text-danger"
+                          }
+                        >
+                          {department.status == 1 ? "Active" : "Deactivated"}
+                        </span>
                         <FormGroup switch>
-                          {department.status == 1 ? "Active" : "Inactive"}
                           <Input
                             type="switch"
                             role="switch"
                             title="status"
+                            className={
+                              department.status == 1
+                                ? "custom-switch-active"
+                                : "custom-switch-inactive"
+                            }
                             checked={Number(department.status) === 1}
                             onChange={async () => {
                               try {
@@ -150,7 +182,7 @@ const Departments = () => {
                           />
                         </FormGroup>
 
-                        <button className="btn">View</button>
+                        <button className="btn text-success px-0">View</button>
                       </div>
                     </td>
                   </tr>
@@ -161,7 +193,11 @@ const Departments = () => {
         </section>
       )}
 
-      <Modal show={showAddDepartmentModal} onHide={handleCloseRoleModal} centered>
+      <Modal
+        show={showAddDepartmentModal}
+        onHide={handleCloseAddDepartmentModal}
+        centered
+      >
         <Modal.Header
           closeButton
           className="align-items-center border-bottom-0"
@@ -171,13 +207,44 @@ const Departments = () => {
               selectedDepartment ? "primary" : "danger"
             } w-100 !tw-text-base`}
           >
-            {selectedDepartment
-              ? "Edit Department"
-              : "Create New Department"}
+            {selectedDepartment ? "Edit Department" : "Create New Department"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DepartmentForm department={selectedDepartment} setRefetch={setRefetch} />
+          <DepartmentForm
+            department={selectedDepartment}
+            setRefetch={setRefetch}
+          />
+        </Modal.Body>
+      </Modal>
+
+      <Modal
+        show={showAssignHODModal}
+        onHide={handleCloseAssignHODModal}
+        centered
+        size="lg"
+      >
+        <Modal.Header
+          closeButton
+          className=" border-bottom-0 my-0 py-0 pt-3"
+        ></Modal.Header>
+        <Modal.Body>
+          <div className="text-center mb-3">
+            <h2 className="fs-6 text-danger my-0">Employees Of Department</h2>
+            <p className="tw-text-sm my-0">
+              Assign Head from the Employee list below
+            </p>
+          </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-7">
+                <AssignHODForm
+                  department={selectedDepartment}
+                  setRefetch={setRefetch}
+                />
+              </div>
+            </div>
+          </div>
         </Modal.Body>
       </Modal>
     </section>
