@@ -9,13 +9,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import Dropdown from "./drop-down";
 import { IconType } from "react-icons";
-
+import { FaStore } from "react-icons/fa"; 
 // Mapping icons to their keys
 const iconMap: Record<string, React.ComponentType> = {
   Dashboard: MdDashboard,
   Configuration: IoSettingsOutline,
   User: RiGroupLine,
   Department: PiBuildingApartment,
+  Shops: FaStore,
 };
 
 const NavMenus = () => {
