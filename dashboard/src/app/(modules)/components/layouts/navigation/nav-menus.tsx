@@ -11,6 +11,7 @@ import Dropdown from "./drop-down";
 import { IconType } from "react-icons";
 import { BsPersonGear } from "react-icons/bs";
 
+import { FaStore } from "react-icons/fa";
 // Mapping icons to their keys
 const iconMap: Record<string, React.ComponentType> = {
   Dashboard: MdDashboard,
@@ -18,6 +19,7 @@ const iconMap: Record<string, React.ComponentType> = {
   User: RiGroupLine,
   Department: PiBuildingApartment,
   Employees: BsPersonGear,
+  Shops: FaStore,
 };
 
 const NavMenus = () => {
