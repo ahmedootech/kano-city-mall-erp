@@ -50,7 +50,7 @@ const DepartmentForm: React.FC<{
         name: department.name,
         max_employee_no: department.max_employee_no,
         description: department.description,
-        hod: department.hod,
+        hod: department.department_head,
       });
     }
   }, [department, methods]);
