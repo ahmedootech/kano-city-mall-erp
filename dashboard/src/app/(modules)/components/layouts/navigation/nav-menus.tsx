@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import Dropdown from "./drop-down";
 import { IconType } from "react-icons";
+import { BsPersonGear } from "react-icons/bs";
 
 // Mapping icons to their keys
 const iconMap: Record<string, React.ComponentType> = {
@@ -16,6 +17,7 @@ const iconMap: Record<string, React.ComponentType> = {
   Configuration: IoSettingsOutline,
   User: RiGroupLine,
   Department: PiBuildingApartment,
+  Employees: BsPersonGear,
 };
 
 const NavMenus = () => {

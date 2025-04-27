@@ -100,7 +100,11 @@ const Departments = () => {
                     <td>{department.name}</td>
                     <td>{department.max_employee_no}</td>
                     <td>{department.description}</td>
-                    <td>N/A</td>
+                    <td>
+                      {department.department_head
+                        ? `${department.department_head.first_name} ${department.department_head.last_name}`
+                        : "N/A"}
+                    </td>
 
                     <td>
                       <div className="d-flex gap-2">
@@ -122,13 +126,17 @@ const Departments = () => {
                     <td>
                       {
                         <button
-                          className="btn btn-warning py-0"
+                          className={`btn ${
+                            department.department_head
+                              ? "btn-info"
+                              : "btn-warning"
+                          } py-0`}
                           onClick={() => {
                             setSelectedDepartemt(department);
                             setShowAssignHODModal(true);
                           }}
                         >
-                          Assign
+                          {department.department_head ? "Assigned" : "Assign"}
                         </button>
                       }
                     </td>

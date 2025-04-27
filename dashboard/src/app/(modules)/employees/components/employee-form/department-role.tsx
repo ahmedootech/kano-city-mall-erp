@@ -83,7 +83,7 @@ const DepartmentRole: FC<{
       setRefetch(true);
       setEmployeeData(employeeDefaultData);
       methods.reset(employeeDefaultData.departmentRole);
-      // setStep("personalInfo");
+      // setStep("personalInfo");wwwwwwwwww
 
       setSuccessMessage("New Employee Added Successfully.");
     } catch (err) {
