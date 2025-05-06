@@ -1,6 +1,10 @@
-
-
-import React, { ChangeEvent, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  useState,
+  useEffect,
+  SetStateAction,
+  Dispatch,
+} from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Input } from "reactstrap";
@@ -14,7 +18,8 @@ import { AppDispatch } from "@/store";
 import { signInActions } from "@/store/features/signup";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import ConfirmationModal from "./confirmation-model";
-
+import { handleYupErrors } from "@/utils/yup-form-helpers";
+import { CircularProgress } from "@mui/material";
 interface Permission {
   id: number;
   name: string;
@@ -32,7 +37,7 @@ interface UserRegistrationFormProps {
     role_id: number;
     modules: Record<string, Record<string, Permission[]>>;
   } | null;
-  onSuccess?: () => void;
+  setRefetch: Dispatch<SetStateAction<boolean>>;
   onUpdate?: () => void;
 }
 
@@ -59,9 +64,16 @@ export type Role = {
 
 const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
   user,
-  onSuccess,
+  setRefetch,
 }) => {
   const [roles, setRoles] = useState<Role[]>([]);
+  const [successMessage, setSuccessMessage] = useState<string | undefined>(
+    undefined
+  );
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(
+    undefined
+  );
+  const [loading, setLoading] = useState(false);
   const [permissions, setPermissions] = useState<number[]>(() => {
     if (user?.modules) {
       const userPermissions = new Set<number>();
@@ -159,7 +171,9 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
       const formattedDate = new Date(data.date_of_birth)
         .toISOString()
         .split("T")[0];
-
+      setLoading(true);
+      setSuccessMessage(undefined);
+      setErrorMessage(undefined);
       const payload = {
         first_name: data.first_name,
         sur_name: data.sur_name,
@@ -172,29 +186,35 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
 
       if (user) {
         await api.put(`/users/${user.uuid}`, payload);
-        toast.success("User updated successfully");
+        setSuccessMessage("User updated successfully");
       } else {
         await dispatch(
           signInActions.main.signup(payload as newUserInterface)
         ).unwrap();
-        toast.success("User created successfully");
+        setSuccessMessage("User created successfully");
       }
 
       methods.reset(defaultValues);
       setPermissions([]);
-      onSuccess?.();
-    } catch (error: any) {
-      toast.error(
-        error.message || `Failed to ${user ? "update" : "create"} user`
-      );
-      if (error.errors) {
-        Object.entries(error.errors).forEach(([key, message]) => {
-          methods.setError(key, {
-            type: "manual",
-            message: message as string,
-          });
-        });
+      setRefetch(true);
+    } catch (err: any) {
+      console.log(err);
+      if (err.message) {
+        setErrorMessage(err.message);
+        return;
       }
+      const errors = err.response?.data?.errors;
+      if (typeof errors === "object") {
+        handleYupErrors({
+          formFields: data,
+          serverError: errors,
+          yupSetError: methods.setError,
+        });
+      } else {
+        setErrorMessage(err.response?.data?.message || "An error occurred");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -202,13 +222,13 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
     if (user) {
       setShowConfirmationModal(true);
     } else {
-      methods.handleSubmit(handleSubmit)(); 
+      methods.handleSubmit(handleSubmit)();
     }
   };
 
   const handleConfirmUpdate = async () => {
-    setShowConfirmationModal(false); 
-    await methods.handleSubmit(handleSubmit)(); 
+    setShowConfirmationModal(false);
+    await methods.handleSubmit(handleSubmit)();
   };
 
   return (
@@ -285,14 +305,29 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
 
         <button
           className={`btn btn-${user ? "primary" : "danger"} w-100 mt-5`}
-          type="button" 
-          onClick={handleUpdateClick} 
+          type="button"
+          onClick={handleUpdateClick}
         >
-          {user ? "Update User" : "Create User"}
+          {/* {user ? "Update User" : "Create User"} */}
+
+          {loading ? (
+            <CircularProgress className="text-white" size={14} />
+          ) : user ? (
+            "Update User"
+          ) : (
+            "Create User"
+          )}
         </button>
+
+        {successMessage && (
+          <p className="text-success text-center mt-3">{successMessage}</p>
+        )}
+        {errorMessage && (
+          <p className="text-danger text-center mt-3">{errorMessage}</p>
+        )}
       </form>
 
-      {user && ( 
+      {user && (
         <ConfirmationModal
           show={showConfirmationModal}
           onHide={() => setShowConfirmationModal(false)}

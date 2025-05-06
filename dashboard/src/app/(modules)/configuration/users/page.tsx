@@ -33,6 +33,8 @@ const User = () => {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [viewUser, setViewUser] = useState<User | null>(null);
   const [showViewModal, setShowViewModal] = useState(false);
+  const [refetch, setRefetch] = useState(false); // Add refetch state
+
   const api = getApiClientInstance();
 
   const handleCloseModal = () => {
@@ -40,7 +42,7 @@ const User = () => {
     setSelectedUser(null);
   };
 
-   const handleView = (user: User) => {
+  const handleView = (user: User) => {
     setViewUser(user);
     setShowViewModal(true);
   };
@@ -105,6 +107,13 @@ const User = () => {
     };
     loadData();
   }, [refreshUsers]);
+
+  useEffect(() => {
+    if (refetch) {
+      refreshUsers();
+      setRefetch(false);
+    }
+  }, [refetch, refreshUsers]);
 
   return (
     <section>
@@ -182,7 +191,6 @@ const User = () => {
                     </td>
                     <td>
                       <FormGroup switch>
-                       
                         <span
                           className={
                             user.status == 1 ? "text-success" : "text-danger"
@@ -246,13 +254,7 @@ const User = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <UserregistrationForm
-            user={selectedUser}
-            onSuccess={() => {
-              handleCloseModal();
-              refreshUsers();
-            }}
-          />
+          <UserregistrationForm user={selectedUser} setRefetch={setRefetch} />
         </Modal.Body>
       </Modal>
       {/* View User Information Modal */}
@@ -295,7 +297,11 @@ const User = () => {
                 </div>
                 <div className="d-flex mb-2">
                   <div className="w-50 font-weight-bold">Status :</div>
-                  <div className={viewUser.status === 1 ? "text-success" : "text-danger"}>
+                  <div
+                    className={
+                      viewUser.status === 1 ? "text-success" : "text-danger"
+                    }
+                  >
                     {viewUser.status === 1 ? "Active" : "Inactive"}
                   </div>
                 </div>
