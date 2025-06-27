@@ -49,7 +49,7 @@ const VendorInfo: FC<{
     };
 
     getData();
-  }, [api]);
+  }, [api, methods]);
 
   // const handleSubmitPersonalInfo = (
   //   data: typeof vendorData.vendorPersonalInfo
