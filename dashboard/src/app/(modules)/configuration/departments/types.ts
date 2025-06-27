@@ -1,4 +1,4 @@
-import { EmployeeType } from "../../employees/types";
+import { EmployeeType } from "../../employee/types";
 
 export type Department = {
   id: number;

@@ -1,4 +1,5 @@
 "use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import Image from "next/image";
 import Services from "./components/services/services";
 import ShopsBusinesses from "./components/shop-business/shops-businesses";
 import Blogs from "./components/blogs/blogs";
-import { useEffect, useState } from "react";
+import { useEffect, useState, React } from "react";
 import { Modal } from "react-bootstrap";
 import HallsBookings from "./components/halls-bookings/halls-bookings";
 

@@ -1,5 +1,5 @@
 "use client";
-import { MdAdd, MdDelete } from "react-icons/md";
+// import { MdAdd, MdDelete } from "react-icons/md";
 import { Input } from "reactstrap";
 import { FaRegEdit } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
@@ -8,28 +8,34 @@ import PageHeader from "../../components/page-header";
 import { useEffect, useState } from "react";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import Loading from "../../components/ui/loading";
-import { Shop } from "./types";
-import ShopForm from "../components/shop-form";
+import { TenancyType } from "../vendor-list/types";
 
-const Shops = () => {
-  const [shops, setShops] = useState<any[]>([]);
+import { useRouter } from "next/navigation";
+const Tenancy = () => {
+  const router = useRouter();
+  const [tenancy, setTenancy] = useState<TenancyType[]>([]);
   const [refetch, setRefetch] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showAddShopModal, setShowAddShopModal] = useState(false);
-  const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
+  // const [tenancy, setTenancy] = useState<TenancyType[]>([]);
+  const [selectedTenancy] = useState<TenancyType | null>(null);
 
   const api = getApiClientInstance();
   const handleCloseShopModal = () => {
     setShowAddShopModal(false);
   };
 
+  const handleReserveClick = () => {
+    router.push("/shop/shop-list"); // Redirect to shop list page
+  };
+
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
-        const res = await api.get("/shops/get-all-shops");
+        const res = await api.get("/tenancy/get-tenancy-list");
 
-        setShops(res.data.data.data);
+        setTenancy(res.data.data.data);
       } catch (err) {
         console.log(err);
       } finally {
@@ -42,7 +48,7 @@ const Shops = () => {
   }, [refetch]);
   return (
     <section>
-      <PageHeader title="Shops">
+      <PageHeader title="Tenancy List">
         <div className="d-flex gap-2 align-items-center">
           <button className="btn d-flex align-items-center gap-2">
             <IoFilter /> Filter
@@ -52,19 +58,16 @@ const Shops = () => {
             className="form-control tw-text-sm"
             placeholder="Search shops"
           />
-          <button className="btn btn-outline-danger d-flex align-items-center gap-2">
+          {/* <button className="btn btn-outline-danger d-flex align-items-center gap-2">
             <MdDelete />
             Archieve
-          </button>
+          </button> */}
           <button
             className="btn btn-warning d-flex align-items-center gap-2 text-nowrap"
-            onClick={() => {
-              setSelectedShop(null);
-              setShowAddShopModal(true);
-            }}
+            onClick={handleReserveClick}
           >
-            <MdAdd />
-            Shop
+            {/* <MdAdd /> */}
+            Reserve
           </button>
         </div>
       </PageHeader>
@@ -85,37 +88,33 @@ const Shops = () => {
                       onChange={() => console.log("selected")}
                     /> */}
                   </th>
-                  <th>Shop No</th>
-                  <th>Description</th>
-                  <th>Shop Type</th>
-                  <th className="!tw-text-green-500">Section</th>
-
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th className="!tw-text-green-500">Email</th>
+                  <th className="!tw-text-green-500">Address</th>
+                  <th className="!tw-text-green-500">Nationality</th>
                   <th className=" !tw-text-red-500">ACTION</th>
-                 
                 </tr>
               </thead>
               <tbody>
-                
-                {shops?.map((shop: Shop, i) => (
+                {tenancy?.map((tenancy: TenancyType, i) => (
                   <tr key={i}>
-                    <td >
-                      <Input
-                        type="checkbox"
-                                              
-                      />
+                    <td>
+                      <Input type="checkbox" />
                     </td>
-                    <td>{shop.shopNo}</td>
-                    <td>{shop.description}</td>
-                    <td>{shop.shop_type.name}</td>
-                    <td>{shop.floor.name}</td>
-                    <td>{shop.section.name}</td>
-                   
+                    <td>{tenancy.vendor_id}</td>
+                    <td>{tenancy.vendor.fullName}</td>
+                    {/* <td>{tenancy.business_type}</td> */}
+                    <td>{tenancy.commissionPercentage}</td>
+                    {/* <td>{}</td>
+                     */}
                     <td>
                       <div className="d-flex gap-2">
                         <button
                           className="btn btn-primary d-flex align-items-center gap-2"
                           onClick={() => {
-                            setSelectedShop(shop);
+                            // setSelectedShop(shop);
                             setShowAddShopModal(true);
                           }}
                         >
@@ -139,11 +138,11 @@ const Shops = () => {
         >
           <Modal.Title
             className={`text-center text-${
-              selectedShop ? "primary" : "danger"
+              selectedTenancy ? "primary" : "danger"
             } w-100 !tw-text-base`}
           >
-            {selectedShop ? "Edit Shop" : "Create New Shop"}
-            {selectedShop ? (
+            {selectedTenancy ? "Edit Tenancy" : "Create New Tenancy"}
+            {selectedTenancy ? (
               <p className="text-muted small mt-1"></p>
             ) : (
               <p className="text-muted small mt-1">
@@ -152,12 +151,10 @@ const Shops = () => {
             )}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <ShopForm shop={selectedShop} setRefetch={setRefetch}   />
-        </Modal.Body>
+        <Modal.Body></Modal.Body>
       </Modal>
     </section>
   );
 };
 
-export  default Shops ;
+export default Tenancy;

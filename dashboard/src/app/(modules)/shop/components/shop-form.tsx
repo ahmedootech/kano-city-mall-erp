@@ -6,7 +6,7 @@ import { CircularProgress } from "@mui/material";
 import { getApiClientInstance } from "@/utils/axios/axios-client";
 import { handleYupErrors } from "@/utils/yup-form-helpers";
 import CustomInput from "@/app/components/form-controls/input";
-import { Section, Floor, ShopType, Shop } from "../shops-list/types";
+import { Section, Floor, ShopType, Shop } from "../shop-list/types";
 import Select from "@/app/components/form-controls/select";
 import { toast } from "react-toastify";
 const defaultValues = {
@@ -131,9 +131,9 @@ const ShopForm: React.FC<{
       methods.reset({
         shopNo: shop.shopNo,
         description: shop.description,
-        section_id: shop.section.id, // Change from shop.section.name
-        floor_id: shop.floor.id, // Change from shop.floor.name
-        shop_type_id: shop.shop_type.id, // Change from shop.shop_type.name
+        section_id: shop.section.id, 
+        floor_id: shop.floor.id, 
+        shop_type_id: shop.shop_type.id, 
       });
     } else {
       methods.reset(defaultValues);
@@ -149,9 +149,9 @@ const ShopForm: React.FC<{
       const payload = {
         shopNo: data.shopNo,
         description: data.description,
-        shop_type_id: String(data.shop_type_id), // Convert to string
-        section_id: String(data.section_id), // Convert to string
-        floor_id: String(data.floor_id), // Convert to string
+        shop_type_id: String(data.shop_type_id), 
+        section_id: String(data.section_id), 
+        floor_id: String(data.floor_id), 
       };
 
       if (shop) {
