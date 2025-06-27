@@ -43,7 +43,7 @@ const DepartmentRole: FC<{
     };
 
     getData();
-  }, []);
+  }, [api]);
 
   const nextOfKinSchema = yup.object().shape({
     department_id: yup.string().required("Employee department required"),

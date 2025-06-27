@@ -109,7 +109,7 @@ const ShopForm: React.FC<{
     fetchAllSection();
     fetchAllFloors();
     fetchAllShopTypes();
-  }, []);
+  }, [api]);
 
   const handleSctionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;

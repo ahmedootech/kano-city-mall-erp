@@ -28,7 +28,7 @@ const defaultValues = {
   commissionPercentage: "",
   comment: "",
   // reg_date: new Date().toISOString().split("T")[0],
-  reg_date: ""
+  reg_date: "",
 };
 
 const TenancyForm: React.FC<{
@@ -134,7 +134,7 @@ const TenancyForm: React.FC<{
 
     fetchAllBusinessTypes();
     fetchAllTenancyTypes();
-  }, []);
+  }, [api]);
 
   const handleBusinessTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -152,14 +152,14 @@ const TenancyForm: React.FC<{
     setErrorMessage(undefined);
 
     try {
-       const vendorId = methods.getValues("vendor_id");
+      const vendorId = methods.getValues("vendor_id");
       const payload = {
         comment: data.comment,
-        vendor_id: String(vendorId), 
+        vendor_id: String(vendorId),
         business_description: data.business_description,
         business_type_id: String(data.business_type_id),
         tenancy_type_id: String(data.tenancy_type_id),
-        shop_id: shop?.id ? String(shop.id) : "", 
+        shop_id: shop?.id ? String(shop.id) : "",
         commissionPercentage: String(data.commissionPercentage),
         reg_date: data.reg_date || new Date().toISOString().split("T")[0],
       };
@@ -250,12 +250,12 @@ const TenancyForm: React.FC<{
           </Select>
 
           <CustomInput
-                        label="Date of Tenancy"
-                        name="reg_date"
-                        control={methods.control}
-                        type="date"
-                        placeholder="Date"
-                      />
+            label="Date of Tenancy"
+            name="reg_date"
+            control={methods.control}
+            type="date"
+            placeholder="Date"
+          />
 
           <CustomInput
             label="Comment"

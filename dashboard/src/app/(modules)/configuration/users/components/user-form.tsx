@@ -142,7 +142,7 @@ const UserregistrationForm: React.FC<UserRegistrationFormProps> = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchRoles();
-  }, []);
+  }, [api]);
 
   const handleRoleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;

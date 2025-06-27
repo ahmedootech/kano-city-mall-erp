@@ -45,7 +45,7 @@ const AssignHODForm: React.FC<{
       };
 
       getEmployees();
-    }, []);
+    }, [api]);
 
     const handleAssignHOD: FormEventHandler<HTMLFormElement> = async (e) => {
       e.preventDefault();

@@ -41,104 +41,53 @@ const GuarantoInfo: FC<{
     resolver: yupResolver(personalInfoSchema),
   });
 
- React.useEffect(() => {
+  React.useEffect(() => {
     if (vendorData.guarantorInfo) {
       methods.reset(vendorData.guarantorInfo);
     }
   }, [vendorData.guarantorInfo, methods]);
 
-// const handleSubmit = async (data: typeof vendorData.guarantorInfo) => {
-//   setErrorMessage(undefined);
-//   setSuccessMessage(undefined);
-//   try {
-//     setLoading(true);
+  const handleSubmit = async (data: typeof vendorData.guarantorInfo) => {
+    setErrorMessage(undefined);
+    setSuccessMessage(undefined);
+    try {
+      setLoading(true);
 
-//     const payload = {
-//       fullName: vendorData.vendorPersonalInfo.fullName,
-//       phoneNo: vendorData.vendorPersonalInfo.phoneNo,
-//       alternateNo: vendorData.vendorPersonalInfo.alternateNo,
-//       email: vendorData.vendorPersonalInfo.email,
-//       currentAddress: vendorData.vendorPersonalInfo.currentAddress,
-//       parmanentAddress: vendorData.vendorPersonalInfo.parmanentAddress,
-//       nationality: vendorData.vendorPersonalInfo.nationality,
-//       state_id: vendorData.vendorPersonalInfo.state_id,
-//       gender: vendorData.vendorPersonalInfo.gender,
-//       meansOfId: vendorData.vendorPersonalInfo.meansOfId,
-//       IDNumber: vendorData.vendorPersonalInfo.IDNumber,
-//       guarantorInfo: {
-//         guarantorFullName: data.guarantorFullName,
-//         guarantorPhoneNo: data.guarantorPhoneNo,
-//         guarantorAlternateNo: data.guarantorAlternateNo,
-//         guarantorEmail: data.guarantorEmail,
-//         guarantorCurrentAddress: data.guarantorCurrentAddress,
-//       },
-//     };
+      const payload = {
+        fullName: vendorData.vendorPersonalInfo.fullName,
+        phoneNo: vendorData.vendorPersonalInfo.phoneNo,
+        alternateNo: vendorData.vendorPersonalInfo.alternateNo,
+        email: vendorData.vendorPersonalInfo.email,
+        currentAddress: vendorData.vendorPersonalInfo.currentAddress,
+        parmanentAddress: vendorData.vendorPersonalInfo.parmanentAddress,
+        nationality: vendorData.vendorPersonalInfo.nationality,
+        state_id: vendorData.vendorPersonalInfo.state_id,
+        gender: vendorData.vendorPersonalInfo.gender,
+        meansOfId: vendorData.vendorPersonalInfo.meansOfId,
+        IDNumber: vendorData.vendorPersonalInfo.IDNumber,
+        ...data, // ✅ flatten guarantor fields at top level
+      };
 
-//     if (vendor && vendor.id) {
-     
-//       await api.put(`/tenancy/update-vendor/${vendor.id}`, payload);
-//       setSuccessMessage("Vendor updated successfully.");
-//     } else {
-   
-//       await api.post("/tenancy/add-new-vendor", {
-//         ...payload,
-//         ...payload.guarantorInfo,
-//       });
-//       setSuccessMessage("New Vendor Added Successfully.");
-//     }
+      if (vendor && vendor.id) {
+        await api.put(`/tenancy/update-vendor/${vendor.id}`, payload);
+        setSuccessMessage("Vendor updated successfully.");
+      } else {
+        await api.post("/tenancy/add-new-vendor", payload);
+        setSuccessMessage("New Vendor Added Successfully.");
+      }
 
-//     setRefetch(true);
-//     setVendorData(vendorDefaultData);
-//     methods.reset(vendorDefaultData.guarantorInfo);
-//   } catch (err) {
-//     setErrorMessage(vendor ? "Error updating vendor!" : "Error creating vendor!");
-//     console.error(err);
-//   } finally {
-//     setLoading(false);
-//   }
-// };
-
-const handleSubmit = async (data: typeof vendorData.guarantorInfo) => {
-  setErrorMessage(undefined);
-  setSuccessMessage(undefined);
-  try {
-    setLoading(true);
-
-    const payload = {
-      fullName: vendorData.vendorPersonalInfo.fullName,
-      phoneNo: vendorData.vendorPersonalInfo.phoneNo,
-      alternateNo: vendorData.vendorPersonalInfo.alternateNo,
-      email: vendorData.vendorPersonalInfo.email,
-      currentAddress: vendorData.vendorPersonalInfo.currentAddress,
-      parmanentAddress: vendorData.vendorPersonalInfo.parmanentAddress,
-      nationality: vendorData.vendorPersonalInfo.nationality,
-      state_id: vendorData.vendorPersonalInfo.state_id,
-      gender: vendorData.vendorPersonalInfo.gender,
-      meansOfId: vendorData.vendorPersonalInfo.meansOfId,
-      IDNumber: vendorData.vendorPersonalInfo.IDNumber,
-      ...data, // ✅ flatten guarantor fields at top level
-    };
-
-    if (vendor && vendor.id) {
-      await api.put(`/tenancy/update-vendor/${vendor.id}`, payload);
-      setSuccessMessage("Vendor updated successfully.");
-    } else {
-      await api.post("/tenancy/add-new-vendor", payload);
-      setSuccessMessage("New Vendor Added Successfully.");
+      setRefetch(true);
+      setVendorData(vendorDefaultData);
+      methods.reset(vendorDefaultData.guarantorInfo);
+    } catch (err) {
+      setErrorMessage(
+        vendor ? "Error updating vendor!" : "Error creating vendor!"
+      );
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-
-    setRefetch(true);
-    setVendorData(vendorDefaultData);
-    methods.reset(vendorDefaultData.guarantorInfo);
-  } catch (err) {
-    setErrorMessage(vendor ? "Error updating vendor!" : "Error creating vendor!");
-    console.error(err);
-  } finally {
-    setLoading(false);
-  }
-};
-
-
+  };
 
   return (
     <section>

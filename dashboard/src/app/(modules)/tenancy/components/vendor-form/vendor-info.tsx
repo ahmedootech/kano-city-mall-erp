@@ -35,9 +35,8 @@ const VendorInfo: FC<{
   });
 
   React.useEffect(() => {
-  methods.reset(vendorData.vendorPersonalInfo);
-}, [vendorData.vendorPersonalInfo]);
-
+    methods.reset(vendorData.vendorPersonalInfo);
+  }, [vendorData.vendorPersonalInfo]);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -50,7 +49,7 @@ const VendorInfo: FC<{
     };
 
     getData();
-  }, []);
+  }, [api]);
 
   // const handleSubmitPersonalInfo = (
   //   data: typeof vendorData.vendorPersonalInfo
@@ -60,16 +59,16 @@ const VendorInfo: FC<{
   // };
 
   const handleSubmitPersonalInfo = (
-  data: typeof vendorData.vendorPersonalInfo
-) => {
-  setVendorData((prev) => ({
-    ...prev,
-    vendorPersonalInfo: data,
-    // Preserve guarantor info if it exists
-    guarantorInfo: prev.guarantorInfo || vendorDefaultData.guarantorInfo
-  }));
-  setStep("guarantorInfo");
-};
+    data: typeof vendorData.vendorPersonalInfo
+  ) => {
+    setVendorData((prev) => ({
+      ...prev,
+      vendorPersonalInfo: data,
+      // Preserve guarantor info if it exists
+      guarantorInfo: prev.guarantorInfo || vendorDefaultData.guarantorInfo,
+    }));
+    setStep("guarantorInfo");
+  };
 
   return (
     <section>
