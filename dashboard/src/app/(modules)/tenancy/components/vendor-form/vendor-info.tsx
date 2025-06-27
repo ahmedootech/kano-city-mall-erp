@@ -36,7 +36,7 @@ const VendorInfo: FC<{
 
   React.useEffect(() => {
     methods.reset(vendorData.vendorPersonalInfo);
-  }, [vendorData.vendorPersonalInfo]);
+  }, [vendorData.vendorPersonalInfo, methods]);
 
   React.useEffect(() => {
     const getData = async () => {
@@ -50,13 +50,6 @@ const VendorInfo: FC<{
 
     getData();
   }, [api, methods]);
-
-  // const handleSubmitPersonalInfo = (
-  //   data: typeof vendorData.vendorPersonalInfo
-  // ) => {
-  //   setVendorData((prev) => ({ ...prev, vendorPersonalInfo: data }));
-  //   setStep("guarantorInfo");
-  // };
 
   const handleSubmitPersonalInfo = (
     data: typeof vendorData.vendorPersonalInfo

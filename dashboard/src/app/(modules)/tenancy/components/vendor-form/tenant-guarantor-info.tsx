@@ -65,7 +65,7 @@ const GuarantoInfo: FC<{
         gender: vendorData.vendorPersonalInfo.gender,
         meansOfId: vendorData.vendorPersonalInfo.meansOfId,
         IDNumber: vendorData.vendorPersonalInfo.IDNumber,
-        ...data, // ✅ flatten guarantor fields at top level
+        ...data,
       };
 
       if (vendor && vendor.id) {
